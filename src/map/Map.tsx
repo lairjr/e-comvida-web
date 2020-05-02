@@ -11,6 +11,7 @@ function Map() {
       }}
     >
       <GoogleMapReact
+        bootstrapURLKeys={{ key: process.env.REACT_APP_MAP_KEY || "" }}
         defaultCenter={{
           lat: 59.95,
           lng: 30.33,
