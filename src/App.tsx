@@ -1,12 +1,11 @@
-import React from 'react';
-import './App.css';
+import React from "react";
+import "./App.css";
+import NavBar from "./common/NavBar";
 
 function App() {
   return (
     <div className="app">
-      <p>
-        Fechados pela vida
-      </p>
+      <NavBar />
     </div>
   );
 }
