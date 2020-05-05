@@ -8,6 +8,7 @@ import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
+import { Link } from "react-router-dom";
 
 function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -23,11 +24,15 @@ function NavBar() {
         <Drawer open={isMenuOpen} onClose={toogleIsMenuOpen}>
           <List>
             <ListItem button key="map">
-              <ListItemText primary="Mapa" />
+              <Link to="/Map">
+                <ListItemText primary="Mapa" />
+              </Link>
             </ListItem>
 
             <ListItem button key="list">
-              <ListItemText primary="Lista" />
+              <Link to="/List">
+                <ListItemText primary="Estabelecimentos" />
+              </Link>
             </ListItem>
           </List>
         </Drawer>
