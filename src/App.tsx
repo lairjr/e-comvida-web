@@ -3,6 +3,7 @@ import "./App.css";
 import NavBar from "./common/NavBar";
 import Map from "./map/Map";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import List from "./list/List";
 
 function App() {
   return (
@@ -13,6 +14,10 @@ function App() {
         <Switch>
           <Route exact path="/">
             <Map />
+          </Route>
+
+          <Route exact path="/list">
+            <List />
           </Route>
 
           <Route exact path="/map">

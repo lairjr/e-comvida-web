@@ -23,15 +23,15 @@ function NavBar() {
 
         <Drawer open={isMenuOpen} onClose={toogleIsMenuOpen}>
           <List>
-            <ListItem button key="map">
-              <Link to="/Map">
-                <ListItemText primary="Mapa" />
+            <ListItem button key="list">
+              <Link to="/list">
+                <ListItemText primary="Estabelecimentos" />
               </Link>
             </ListItem>
 
-            <ListItem button key="list">
-              <Link to="/List">
-                <ListItemText primary="Estabelecimentos" />
+            <ListItem button key="map">
+              <Link to="/map">
+                <ListItemText primary="Mapa" />
               </Link>
             </ListItem>
           </List>
