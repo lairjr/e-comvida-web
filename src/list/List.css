@@ -1,9 +1,23 @@
-.list {
+.container {
   padding: 1rem;
+}
+
+.list {
+  padding-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@media only screen and (min-width: 768px) {
+  .list {
+    flex-direction: row;
+  }
 }
 
 .search {
   display: flex;
   align-items: center;
-  padding: 1rem 0 2rem 0;
+  padding: 1rem 0;
 }

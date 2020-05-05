@@ -79,7 +79,7 @@ interface CompanyCardProps {
 
 function CompanyCard({ company }: CompanyCardProps) {
   return (
-    <Card variant="outlined">
+    <Card className="card" variant="outlined">
       <CardActionArea>
         <CardContent>
           <Typography component="h5" variant="h5">
@@ -162,7 +162,7 @@ function CompanyCard({ company }: CompanyCardProps) {
 
 function List() {
   return (
-    <div className="list">
+    <div className="container">
       <div className="search">
         <TextField
           label="Pesquise"
@@ -177,9 +177,11 @@ function List() {
         />
       </div>
 
-      {companies.map((company: CompanyEntity) => (
-        <CompanyCard company={company} />
-      ))}
+      <div className="list">
+        {companies.map((company: CompanyEntity) => (
+          <CompanyCard company={company} />
+        ))}
+      </div>
     </div>
   );
 }
