@@ -1,50 +1,54 @@
 import React from "react";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
+import Chip from "@material-ui/core/Chip";
 
 interface SourceEntity {
   link: string;
 }
 
 interface CompanyEntity {
-  name: string;
-  description: string;
   address: string;
+  description: string;
+  name: string;
   sources: SourceEntity[];
+  typeOfSupports: string[];
 }
 
 const companies: CompanyEntity[] = [
   {
-    name: "Mercur",
+    address: "Santa Cruz do Sul",
     description: "Empresa de bagulhos",
-    address: "Santa Cruz do Sul",
+    name: "Mercur",
     sources: [
       {
         link: "",
       },
     ],
+    typeOfSupports: ["donation"],
   },
   {
+    address: "Santa Cruz do Sul",
     name: "Xalingo",
-    description: "Empresa de brincedos",
-    address: "Santa Cruz do Sul",
+    description: "Empresa de brinquedos",
     sources: [
       {
         link: "",
       },
     ],
+    typeOfSupports: ["publicNote"],
   },
   {
+    address: "Santa Cruz do Sul",
     name: "JTI Tabacos",
     description: "Fumajeira",
-    address: "Santa Cruz do Sul",
     sources: [
       {
         link: "",
       },
     ],
+    typeOfSupports: ["publicNote", "reducedPrice"],
   },
 ];
 
@@ -61,16 +65,44 @@ function CompanyCard({ company }: CompanyCardProps) {
             {company.name}
           </Typography>
 
+          {company.typeOfSupports.map((support: string) => {
+            switch (support) {
+              case "donation":
+                return (
+                  <Chip
+                    // icon={<FaceIcon />}
+                    label="Doacão"
+                    color="primary"
+                  />
+                );
+              case "publicNote":
+                return (
+                  <Chip
+                    // icon={<FaceIcon />}
+                    label="Nota pública"
+                    color="primary"
+                  />
+                );
+              default:
+                return (
+                  <Chip
+                    // icon={<FaceIcon />}
+                    label="Reducao de precos"
+                    color="primary"
+                  />
+                );
+            }
+          })}
+
           <Typography variant="subtitle1" color="textSecondary">
             {company.description}
           </Typography>
+
+          <Typography variant="subtitle1" color="textSecondary">
+            {company.address}
+          </Typography>
         </CardContent>
       </div>
-
-      <CardMedia
-        image="/static/images/cards/live-from-space.jpg"
-        title="Live from space album cover"
-      />
     </Card>
   );
 }
