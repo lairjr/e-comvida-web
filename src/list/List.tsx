@@ -68,7 +68,7 @@ interface CompanyCardProps {
 
 function CompanyCard({ company }: CompanyCardProps) {
   return (
-    <Card>
+    <Card variant="outlined">
       <CardActionArea>
         <CardContent>
           <Typography component="h5" variant="h5">
@@ -125,7 +125,7 @@ function CompanyCard({ company }: CompanyCardProps) {
 
 function List() {
   return (
-    <div>
+    <div className="list">
       <div className="search">
         <TextField
           label="Pesquise"

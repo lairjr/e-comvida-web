@@ -1,4 +1,9 @@
+.list {
+  padding: 1rem;
+}
+
 .search {
   display: flex;
   align-items: center;
+  padding: 1rem 0 2rem 0;
 }
