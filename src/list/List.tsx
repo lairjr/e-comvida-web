@@ -3,17 +3,20 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import Chip from "@material-ui/core/Chip";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import CardActions from "@material-ui/core/CardActions";
+import Button from "@material-ui/core/Button";
 
-interface SourceEntity {
+interface SupportEntity {
   link: string;
+  type: string;
 }
 
 interface CompanyEntity {
   address: string;
   description: string;
   name: string;
-  sources: SourceEntity[];
-  typeOfSupports: string[];
+  supports: SupportEntity[];
 }
 
 const companies: CompanyEntity[] = [
@@ -21,34 +24,39 @@ const companies: CompanyEntity[] = [
     address: "Santa Cruz do Sul",
     description: "Empresa de bagulhos",
     name: "Mercur",
-    sources: [
+    supports: [
       {
-        link: "",
+        link:
+          "https://gauchazh.clicrbs.com.br/economia/noticia/2020/03/empresa-mercur-de-santa-cruz-do-sul-paralisa-atividades-e-manda-mais-de-400-funcionarios-para-casa-ck80rltlm06jy01pq245srgav.html",
+        type: "publicNote",
       },
     ],
-    typeOfSupports: ["donation"],
   },
   {
     address: "Santa Cruz do Sul",
     name: "Xalingo",
     description: "Empresa de brinquedos",
-    sources: [
+    supports: [
       {
         link: "",
+        type: "publicNote",
       },
     ],
-    typeOfSupports: ["publicNote"],
   },
   {
     address: "Santa Cruz do Sul",
     name: "JTI Tabacos",
     description: "Fumajeira",
-    sources: [
+    supports: [
       {
         link: "",
+        type: "donation",
+      },
+      {
+        link: "",
+        type: "reducedPrice",
       },
     ],
-    typeOfSupports: ["publicNote", "reducedPrice"],
   },
 ];
 
@@ -59,37 +67,43 @@ interface CompanyCardProps {
 function CompanyCard({ company }: CompanyCardProps) {
   return (
     <Card>
-      <div>
+      <CardActionArea>
         <CardContent>
           <Typography component="h5" variant="h5">
             {company.name}
           </Typography>
 
-          {company.typeOfSupports.map((support: string) => {
-            switch (support) {
+          {company.supports.map((support: SupportEntity) => {
+            switch (support.type) {
               case "donation":
                 return (
-                  <Chip
-                    // icon={<FaceIcon />}
-                    label="Doacão"
-                    color="primary"
-                  />
+                  <a
+                    href={support.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Chip clickable label="Doacão" color="primary" />
+                  </a>
                 );
               case "publicNote":
                 return (
-                  <Chip
-                    // icon={<FaceIcon />}
-                    label="Nota pública"
-                    color="primary"
-                  />
+                  <a
+                    href={support.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Chip clickable label="Nota pública" color="primary" />
+                  </a>
                 );
               default:
                 return (
-                  <Chip
-                    // icon={<FaceIcon />}
-                    label="Reducao de precos"
-                    color="primary"
-                  />
+                  <a
+                    href={support.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Chip clickable label="Reducao de precos" color="primary" />
+                  </a>
                 );
             }
           })}
@@ -102,7 +116,7 @@ function CompanyCard({ company }: CompanyCardProps) {
             {company.address}
           </Typography>
         </CardContent>
-      </div>
+      </CardActionArea>
     </Card>
   );
 }
