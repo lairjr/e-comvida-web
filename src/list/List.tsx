@@ -4,8 +4,10 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import Chip from "@material-ui/core/Chip";
 import CardActionArea from "@material-ui/core/CardActionArea";
-import CardActions from "@material-ui/core/CardActions";
-import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import Search from "@material-ui/icons/Search";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import "./List.css";
 
 interface SupportEntity {
   link: string;
@@ -124,7 +126,19 @@ function CompanyCard({ company }: CompanyCardProps) {
 function List() {
   return (
     <div>
-      <h1>List</h1>
+      <div className="search">
+        <TextField
+          label="Pesquise"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <Search />
+              </InputAdornment>
+            ),
+          }}
+          fullWidth
+        />
+      </div>
 
       {companies.map((company: CompanyEntity) => (
         <CompanyCard company={company} />
