@@ -1,5 +1,6 @@
 import { combineReducers, createStore } from "redux";
 import { firebaseReducer, FirebaseReducer } from "react-redux-firebase";
+import { composeWithDevTools } from "redux-devtools-extension/developmentOnly";
 
 interface Todo {
   text: string;
@@ -22,4 +23,4 @@ const rootReducer = combineReducers<RootState>({
   firebase: firebaseReducer,
 });
 
-export default createStore(rootReducer, {});
+export default createStore(rootReducer, composeWithDevTools());
