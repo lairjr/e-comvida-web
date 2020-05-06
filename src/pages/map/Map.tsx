@@ -1,7 +1,7 @@
 import React from "react";
 import "./Map.css";
 import GoogleMapReact from "google-map-react";
-import { usePosition } from "../common/hooks/usePosition";
+import { usePosition } from "../../helpers/usePosition";
 
 function Map() {
   const { latitude, longitude } = usePosition();

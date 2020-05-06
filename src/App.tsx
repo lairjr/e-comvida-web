@@ -1,9 +1,9 @@
 import React from "react";
 import "./App.css";
-import NavBar from "./common/UI/NavBar";
-import Map from "./map/Map";
+import NavBar from "./components/NavBar";
+import Map from "./pages/map/Map";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import List from "./list/List";
+import List from "./pages/list/List";
 
 function App() {
   return (
