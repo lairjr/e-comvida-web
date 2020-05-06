@@ -1,8 +1,11 @@
 import React from "react";
 import "./Map.css";
 import GoogleMapReact from "google-map-react";
+import { usePosition } from "../common/hooks/usePosition";
 
 function Map() {
+  const { latitude, longitude } = usePosition();
+
   return (
     <div
       style={{
@@ -12,9 +15,9 @@ function Map() {
     >
       <GoogleMapReact
         bootstrapURLKeys={{ key: process.env.REACT_APP_MAP_KEY || "" }}
-        defaultCenter={{
-          lat: 59.95,
-          lng: 30.33,
+        center={{
+          lat: latitude,
+          lng: longitude,
         }}
         defaultZoom={11}
         yesIWantToUseGoogleMapApiInternals

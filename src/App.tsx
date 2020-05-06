@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import NavBar from "./common/NavBar";
+import NavBar from "./common/UI/NavBar";
 import Map from "./map/Map";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import List from "./list/List";
