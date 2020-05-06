@@ -15,6 +15,8 @@ import FacebookIcon from "@material-ui/icons/Facebook";
 import InstagramIcon from "@material-ui/icons/Instagram";
 import MapIcon from "@material-ui/icons/Map";
 import FastfoodIcon from "@material-ui/icons/Fastfood";
+import Container from "@material-ui/core/Container";
+import Grid from "@material-ui/core/Grid";
 
 interface SupportEntity {
   link: string;
@@ -162,7 +164,7 @@ function CompanyCard({ company }: CompanyCardProps) {
 
 function List() {
   return (
-    <div className="container">
+    <Container>
       <div className="search">
         <TextField
           label="Pesquise"
@@ -177,12 +179,14 @@ function List() {
         />
       </div>
 
-      <div className="list">
+      <Grid container spacing={1}>
         {companies.map((company: CompanyEntity) => (
-          <CompanyCard company={company} />
+          <Grid item lg={4} sm={6} xs={12}>
+            <CompanyCard company={company} />
+          </Grid>
         ))}
-      </div>
-    </div>
+      </Grid>
+    </Container>
   );
 }
 
