@@ -15,10 +15,6 @@ interface RootState {
   firebase: FirebaseReducer.Reducer<{}, Schema>; // The empyt object is for profile data type
 }
 
-const fbConfig = {};
-
-// firebase.initializeApp(fbConfig);
-
 const rootReducer = combineReducers<RootState>({
   firebase: firebaseReducer,
 });
