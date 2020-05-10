@@ -27,6 +27,7 @@ interface SupportEntity {
 }
 
 interface CompanyEntity {
+  id: string;
   address: string;
   description: string;
   name: string;
@@ -34,61 +35,11 @@ interface CompanyEntity {
   supports: SupportEntity[];
 }
 
-const companies: CompanyEntity[] = [
-  {
-    address: "Rua Marechal Floriano 1 - Santa Cruz do Sul - RS - Brazil",
-    description: "Alguma descricao simples",
-    name: "Mercur",
-    phone: "(51) 91111-2222",
-    supports: [
-      {
-        link:
-          "https://gauchazh.clicrbs.com.br/economia/noticia/2020/03/empresa-mercur-de-santa-cruz-do-sul-paralisa-atividades-e-manda-mais-de-400-funcionarios-para-casa-ck80rltlm06jy01pq245srgav.html",
-        type: "publicNote",
-      },
-    ],
-  },
-  {
-    address: "Rua Marechal Floriano 1 - Santa Cruz do Sul - RS - Brazil",
-    name: "Xalingo",
-    description: "Alguma descricao simples",
-    phone: "(51) 91111-2222",
-    supports: [
-      {
-        link: "",
-        type: "publicNote",
-      },
-    ],
-  },
-  {
-    address: "Rua Marechal Floriano 1 - Santa Cruz do Sul - RS - Brazil",
-    name: "JTI Tabacos",
-    description: "Alguma descricao simples",
-    phone: "(51) 91111-2222",
-    supports: [
-      {
-        link: "",
-        type: "donation",
-      },
-      {
-        link: "",
-        type: "reducedPrice",
-      },
-    ],
-  },
-];
-
 interface CompanyCardProps {
   company: CompanyEntity;
 }
 
 function CompanyCard({ company }: CompanyCardProps) {
-  useFirestoreConnect([{ collection: "companies" }]);
-  const companies = useSelector(
-    (state: RootState) => state.firestore.data.companies
-  );
-  console.log(companies);
-
   return (
     <Card className="card" variant="outlined">
       <CardActionArea>
@@ -102,6 +53,7 @@ function CompanyCard({ company }: CompanyCardProps) {
               case "donation":
                 return (
                   <a
+                    key="donation"
                     href={support.link}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -112,6 +64,7 @@ function CompanyCard({ company }: CompanyCardProps) {
               case "publicNote":
                 return (
                   <a
+                    key="publicNote"
                     href={support.link}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -122,6 +75,7 @@ function CompanyCard({ company }: CompanyCardProps) {
               default:
                 return (
                   <a
+                    key="post"
                     href={support.link}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -172,6 +126,12 @@ function CompanyCard({ company }: CompanyCardProps) {
 }
 
 function List() {
+  useFirestoreConnect([{ collection: "companies" }]);
+  const companies = useSelector(
+    (state: RootState) => state.firestore.ordered.companies
+  );
+  console.log(companies);
+
   return (
     <Container>
       <div className="search">
@@ -189,11 +149,15 @@ function List() {
       </div>
 
       <Grid container spacing={1}>
-        {companies.map((company: CompanyEntity) => (
-          <Grid item lg={4} sm={6} xs={12}>
-            <CompanyCard company={company} />
-          </Grid>
-        ))}
+        {companies ? (
+          companies.map((company: CompanyEntity) => (
+            <Grid item lg={4} sm={6} xs={12} key={company.id}>
+              <CompanyCard company={company} />
+            </Grid>
+          ))
+        ) : (
+          <div>Loading...</div>
+        )}
       </Grid>
     </Container>
   );
