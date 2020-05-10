@@ -17,6 +17,8 @@ import MapIcon from "@material-ui/icons/Map";
 import FastfoodIcon from "@material-ui/icons/Fastfood";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
+import { useFirestoreConnect } from "react-redux-firebase";
+import { useSelector } from "react-redux";
 
 interface SupportEntity {
   link: string;
@@ -80,6 +82,10 @@ interface CompanyCardProps {
 }
 
 function CompanyCard({ company }: CompanyCardProps) {
+  useFirestoreConnect([{ collection: "companies" }]);
+  const companies = useSelector((state: any) => state.firestore.data.companies);
+  console.log(companies);
+
   return (
     <Card className="card" variant="outlined">
       <CardActionArea>
