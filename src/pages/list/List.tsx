@@ -19,6 +19,7 @@ import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import { useFirestoreConnect } from "react-redux-firebase";
 import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
 interface SupportEntity {
   link: string;
@@ -83,7 +84,9 @@ interface CompanyCardProps {
 
 function CompanyCard({ company }: CompanyCardProps) {
   useFirestoreConnect([{ collection: "companies" }]);
-  const companies = useSelector((state: any) => state.firestore.data.companies);
+  const companies = useSelector(
+    (state: RootState) => state.firestore.data.companies
+  );
   console.log(companies);
 
   return (
