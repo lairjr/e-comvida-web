@@ -126,7 +126,9 @@ function CompanyCard({ company }: CompanyCardProps) {
 }
 
 function List() {
-  useFirestoreConnect([{ collection: "companies" }]);
+  useFirestoreConnect([
+    { collection: "companies", where: ["name", "==", "Mercur"] },
+  ]);
   const companies = useSelector(
     (state: RootState) => state.firestore.ordered.companies
   );
