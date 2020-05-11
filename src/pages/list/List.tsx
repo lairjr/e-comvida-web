@@ -20,6 +20,13 @@ import Grid from "@material-ui/core/Grid";
 import { useFirestoreConnect } from "react-redux-firebase";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import { usePosition } from "../../helpers/usePosition";
+import firebase from "firebase";
+
+interface GeoPoint {
+  Pc: number;
+  Vc: number;
+}
 
 interface SupportEntity {
   link: string;
@@ -30,6 +37,7 @@ interface CompanyEntity {
   id: string;
   address: string;
   description: string;
+  geopoint: GeoPoint;
   name: string;
   phone: string;
   supports: SupportEntity[];
@@ -126,13 +134,35 @@ function CompanyCard({ company }: CompanyCardProps) {
 }
 
 function List() {
+  const { latitude, longitude } = usePosition();
+
+  const lat = 0.0144927536231884;
+  const lon = 0.0181818181818182;
+
+  const lowerLat = latitude - lat * 50;
+  const lowerLon = longitude - lon * 50;
+
+  const greaterLat = latitude + lat * 50;
+  const greaterLon = longitude + lon * 50;
+
+  const lesserGeopoint = new firebase.firestore.GeoPoint(lowerLat, lowerLon);
+  const greaterGeopoint = new firebase.firestore.GeoPoint(
+    greaterLat,
+    greaterLon
+  );
+
   useFirestoreConnect([
-    { collection: "companies", where: ["name", "==", "Mercur"] },
+    {
+      collection: "companies",
+      where: [
+        ["geopoint", ">=", lesserGeopoint],
+        ["geopoint", "<=", greaterGeopoint],
+      ],
+    },
   ]);
   const companies = useSelector(
     (state: RootState) => state.firestore.ordered.companies
   );
-  console.log(companies);
 
   return (
     <Container>
