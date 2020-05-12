@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
@@ -22,6 +22,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { usePosition } from "../../helpers/usePosition";
 import firebase from "firebase";
+import Shimmer from "../../components/Shimmer";
 
 const MILES = 50;
 
@@ -47,6 +48,94 @@ interface CompanyEntity {
 
 interface CompanyCardProps {
   company: CompanyEntity;
+}
+
+function LoadingCard() {
+  return (
+    <Card className="card" variant="outlined">
+      <CardActionArea>
+        <CardContent>
+          <Shimmer>
+            <div
+              style={{
+                height: "22px",
+                marginTop: "13px",
+                width: "200px",
+              }}
+            ></div>
+          </Shimmer>
+
+          <br />
+
+          <Shimmer>
+            <div
+              style={{
+                height: "13px",
+                marginTop: "13px",
+                width: "120px",
+              }}
+            ></div>
+          </Shimmer>
+
+          <br />
+
+          <Shimmer>
+            <div
+              style={{
+                height: "13px",
+                marginTop: "13px",
+                width: "250px",
+              }}
+            ></div>
+          </Shimmer>
+
+          <br />
+
+          <Shimmer>
+            <div
+              style={{
+                height: "13px",
+                marginTop: "13px",
+                width: "180px",
+              }}
+            ></div>
+          </Shimmer>
+
+          <br />
+          <br />
+          <br />
+
+          <Shimmer>
+            <div
+              style={{
+                height: "13px",
+                marginTop: "13px",
+                width: "250px",
+              }}
+            ></div>
+          </Shimmer>
+        </CardContent>
+      </CardActionArea>
+    </Card>
+  );
+}
+
+function LoadingList() {
+  return (
+    <Fragment>
+      <Grid item lg={4} sm={6} xs={12}>
+        <LoadingCard />
+      </Grid>
+
+      <Grid item lg={4} sm={6} xs={12}>
+        <LoadingCard />
+      </Grid>
+
+      <Grid item lg={4} sm={6} xs={12}>
+        <LoadingCard />
+      </Grid>
+    </Fragment>
+  );
 }
 
 function CompanyCard({ company }: CompanyCardProps) {
@@ -198,7 +287,7 @@ function List() {
             </Grid>
           ))
         ) : (
-          <div>Loading...</div>
+          <LoadingList />
         )}
       </Grid>
     </Container>
