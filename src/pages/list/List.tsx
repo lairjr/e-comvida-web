@@ -23,6 +23,7 @@ import { RootState } from "../../redux/store";
 import { usePosition } from "../../helpers/usePosition";
 import firebase from "firebase";
 import Shimmer from "../../components/Shimmer";
+import useQueryParam from "../../helpers/useQueryParam";
 
 const MILES = 50;
 
@@ -225,6 +226,11 @@ function CompanyCard({ company }: CompanyCardProps) {
 }
 
 function List() {
+  const { filterValue, onFilterValueChange } = useQueryParam("queryTerm");
+  const onChangeSearchTerm = (event: React.ChangeEvent<HTMLInputElement>) =>
+    onFilterValueChange(event.target.value);
+  console.log(filterValue);
+
   const { latitude, longitude } = usePosition();
 
   const lat = 0.0144927536231884;
@@ -275,6 +281,7 @@ function List() {
               ),
             }}
             fullWidth
+            onChange={onChangeSearchTerm}
           />
         </Grid>
       </Grid>
