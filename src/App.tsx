@@ -9,15 +9,9 @@ import store from "./redux/store";
 import firebase from "./firebase";
 import { ReactReduxFirebaseProvider } from "react-redux-firebase";
 import { createFirestoreInstance } from "redux-firestore";
+import About from "./pages/about/About";
 
 function App() {
-  // firebase
-  //   .firestore()
-  //   .collection("companies")
-  //   .get()
-  //   .then((companies: any) => {
-  //     console.log(companies.docs);
-  //   });
   const rrfProps = {
     firebase,
     config: {
@@ -38,6 +32,10 @@ function App() {
             <Switch>
               <Route exact path="/">
                 <List />
+              </Route>
+
+              <Route exact path="/about">
+                <About />
               </Route>
 
               <Route exact path="/list">

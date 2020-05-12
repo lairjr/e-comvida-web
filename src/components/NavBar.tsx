@@ -39,6 +39,12 @@ function NavBar() {
                 <ListItemText primary="Mapa" />
               </Link>
             </ListItem>
+
+            <ListItem button key="about">
+              <Link to="/about">
+                <ListItemText primary="About" />
+              </Link>
+            </ListItem>
           </List>
         </Drawer>
 
@@ -47,6 +53,10 @@ function NavBar() {
         </Typography>
 
         <Hidden smDown>
+          <Link to="/about">
+            <Button>Sobre</Button>
+          </Link>
+
           <Link to="/list">
             <Button>Empresas</Button>
           </Link>

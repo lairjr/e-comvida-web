@@ -23,6 +23,8 @@ import { RootState } from "../../redux/store";
 import { usePosition } from "../../helpers/usePosition";
 import firebase from "firebase";
 
+const MILES = 50;
+
 interface GeoPoint {
   Pc: number;
   Vc: number;
@@ -139,11 +141,11 @@ function List() {
   const lat = 0.0144927536231884;
   const lon = 0.0181818181818182;
 
-  const lowerLat = latitude - lat * 50;
-  const lowerLon = longitude - lon * 50;
+  const lowerLat = latitude - lat * MILES;
+  const lowerLon = longitude - lon * MILES;
 
-  const greaterLat = latitude + lat * 50;
-  const greaterLon = longitude + lon * 50;
+  const greaterLat = latitude + lat * MILES;
+  const greaterLon = longitude + lon * MILES;
 
   const lesserGeopoint = new firebase.firestore.GeoPoint(lowerLat, lowerLon);
   const greaterGeopoint = new firebase.firestore.GeoPoint(
