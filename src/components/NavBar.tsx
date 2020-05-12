@@ -12,6 +12,8 @@ import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import Hidden from "@material-ui/core/Hidden";
 import "./NavBar.css";
+import Container from "@material-ui/core/Container";
+import Grid from "@material-ui/core/Grid";
 
 function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -24,47 +26,55 @@ function NavBar() {
           <IconButton onClick={toogleIsMenuOpen} edge="start" aria-label="menu">
             <MenuIcon />
           </IconButton>
+
+          <Drawer open={isMenuOpen} onClose={toogleIsMenuOpen}>
+            <List>
+              <ListItem button key="list">
+                <Link to="/list">
+                  <ListItemText primary="Estabelecimentos" />
+                </Link>
+              </ListItem>
+
+              <ListItem button key="map">
+                <Link to="/map">
+                  <ListItemText primary="Mapa" />
+                </Link>
+              </ListItem>
+
+              <ListItem button key="about">
+                <Link to="/about">
+                  <ListItemText primary="About" />
+                </Link>
+              </ListItem>
+            </List>
+          </Drawer>
         </Hidden>
 
-        <Drawer open={isMenuOpen} onClose={toogleIsMenuOpen}>
-          <List>
-            <ListItem button key="list">
-              <Link to="/list">
-                <ListItemText primary="Estabelecimentos" />
-              </Link>
-            </ListItem>
+        <Container>
+          <Grid container spacing={3}>
+            <Grid item>
+              <Typography variant="h6" className="title">
+                Fechados pela vida
+              </Typography>
+            </Grid>
 
-            <ListItem button key="map">
-              <Link to="/map">
-                <ListItemText primary="Mapa" />
-              </Link>
-            </ListItem>
+            <Hidden smDown>
+              <Grid container justify="flex-end" alignItems="center">
+                <Link to="/about">
+                  <Button>Sobre</Button>
+                </Link>
 
-            <ListItem button key="about">
-              <Link to="/about">
-                <ListItemText primary="About" />
-              </Link>
-            </ListItem>
-          </List>
-        </Drawer>
+                <Link to="/list">
+                  <Button>Empresas</Button>
+                </Link>
 
-        <Typography variant="h6" className="title">
-          Fechados pela vida
-        </Typography>
-
-        <Hidden smDown>
-          <Link to="/about">
-            <Button>Sobre</Button>
-          </Link>
-
-          <Link to="/list">
-            <Button>Empresas</Button>
-          </Link>
-
-          <Link to="/map">
-            <Button>Mapa</Button>
-          </Link>
-        </Hidden>
+                <Link to="/map">
+                  <Button>Mapa</Button>
+                </Link>
+              </Grid>
+            </Hidden>
+          </Grid>
+        </Container>
       </Toolbar>
     </AppBar>
   );
