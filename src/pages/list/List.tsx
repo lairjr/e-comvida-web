@@ -168,21 +168,29 @@ function List() {
 
   return (
     <Container>
-      <div className="search">
-        <TextField
-          label="Pesquise"
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <Search />
-              </InputAdornment>
-            ),
-          }}
-          fullWidth
-        />
-      </div>
+      <Grid container spacing={4} style={{ paddingTop: "3rem" }}>
+        <Grid item xs={12}>
+          <Typography component="h5" variant="h5">
+            Empresas a favor do isolamento
+          </Typography>
+        </Grid>
 
-      <Grid container spacing={1}>
+        <Grid item xs={12}>
+          <TextField
+            placeholder="Pesquise"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Search />
+                </InputAdornment>
+              ),
+            }}
+            fullWidth
+          />
+        </Grid>
+      </Grid>
+
+      <Grid container spacing={1} style={{ paddingTop: "3rem" }}>
         {companies ? (
           companies.map((company: CompanyEntity) => (
             <Grid item lg={4} sm={6} xs={12} key={company.id}>
