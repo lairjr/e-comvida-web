@@ -17,7 +17,10 @@ import MapIcon from "@material-ui/icons/Map";
 import FastfoodIcon from "@material-ui/icons/Fastfood";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
-import { useFirestoreConnect } from "react-redux-firebase";
+import {
+  useFirestoreConnect,
+  ReduxFirestoreQuerySetting,
+} from "react-redux-firebase";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { usePosition } from "../../helpers/usePosition";
@@ -229,7 +232,6 @@ function List() {
   const { filterValue, onFilterValueChange } = useQueryParam("queryTerm");
   const onChangeSearchTerm = (event: React.ChangeEvent<HTMLInputElement>) =>
     onFilterValueChange(event.target.value);
-  console.log(filterValue);
 
   const { latitude, longitude } = usePosition();
 
@@ -248,7 +250,7 @@ function List() {
     greaterLon
   );
 
-  useFirestoreConnect([
+  const baseConn = [
     {
       collection: "companies",
       where: [
@@ -256,7 +258,21 @@ function List() {
         ["geopoint", "<=", greaterGeopoint],
       ],
     },
-  ]);
+  ] as ReduxFirestoreQuerySetting[];
+  const firestoneConn = filterValue
+    ? ([
+        ...baseConn,
+        {
+          collection: "companies",
+          where: [
+            ["search", "array-contains", filterValue.toLocaleLowerCase()],
+          ],
+        },
+      ] as ReduxFirestoreQuerySetting[])
+    : baseConn;
+
+  useFirestoreConnect(firestoneConn);
+
   const companies = useSelector(
     (state: RootState) => state.firestore.ordered.companies
   );
@@ -281,6 +297,7 @@ function List() {
               ),
             }}
             fullWidth
+            value={filterValue || ""}
             onChange={onChangeSearchTerm}
           />
         </Grid>
