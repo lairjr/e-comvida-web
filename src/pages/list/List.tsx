@@ -279,7 +279,7 @@ function List() {
 
   return (
     <Container>
-      <Grid container spacing={4} style={{ paddingTop: "3rem" }}>
+      <Grid container spacing={4} style={{ paddingTop: "2rem" }}>
         <Grid item xs={12}>
           <Typography component="h5" variant="h5">
             Empresas a favor do isolamento
