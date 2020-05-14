@@ -16,10 +16,11 @@ script:
 
 jobs:
   include:
-    - stage: test
-      name: "Unit Tests"
-      script:
-        - yarn test
+    # TODO (lairjr): Enable that as soon as we have test coverage
+    # - stage: test
+    #   name: "Unit Tests"
+    #   script:
+    #     - yarn test
       
     - stage: deploy_staging
       name: "Deploy staging"
