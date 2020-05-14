@@ -38,7 +38,7 @@ jobs:
       name: "Deploy prod"
       if: branch = master
       before_deploy:
-        - yarn build
+        - yarn build:prod
       deploy:
         dir: "build/"
         site: e7708fd5-0b08-466f-8d76-a051a3767f26 # prod

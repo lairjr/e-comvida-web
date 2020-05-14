@@ -15,6 +15,7 @@
     "@types/react-dom": "^16.9.0",
     "@types/react-redux": "^7.1.8",
     "@types/react-router-dom": "^5.1.5",
+    "env-cmd": "^10.1.0",
     "firebase": "^7.14.2",
     "google-map-react": "^1.1.7",
     "husky": "^4.2.5",
@@ -43,6 +44,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "build:prod": "env-cmd -f env.prod.js react-scripts build",
+    "build:staging": "env-cmd -f env.staging.js react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
