@@ -1,0 +1,45 @@
+language: node_js
+
+env:
+  - YARN_GPG=no
+
+addons:
+  chrome: stable
+
+node_js:
+  - "stable"
+
+cache: yarn
+
+script:
+  - yarn
+
+jobs:
+  include:
+    - stage: test
+      name: "Unit Tests"
+      script:
+        - yarn test
+      
+    - stage: deploy_staging
+      name: "Deploy staging"
+      if: branch = master
+      before_deploy:
+        - yarn build:staging
+      deploy:
+        dir: "build/"
+        site: bec445af-33aa-4312-9c07-d93ca39da463 # staging
+        prod: true
+        provider: netlify
+        edge: true
+
+    - stage: deploy_prod
+      name: "Deploy prod"
+      if: branch = master
+      before_deploy:
+        - yarn build
+      deploy:
+        dir: "build/"
+        site: e7708fd5-0b08-466f-8d76-a051a3767f26 # prod
+        provider: netlify
+        edge: true
