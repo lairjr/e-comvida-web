@@ -61,15 +61,15 @@ function NavBar() {
           <span className="subtitle">economia da vida durante a pandemia</span>
 
           <Grid container justify="flex-end" alignItems="center">
-            <Link to="/list">
+            <Link to="/map">
               <Button variant="contained" color="primary">
-                Empresas
+                Anuncie aqui
               </Button>
             </Link>
 
-            <Link to="/map" style={{ paddingLeft: "1rem" }}>
+            <Link to="/list" style={{ paddingLeft: "1rem" }}>
               <Button variant="contained" color="primary">
-                Anuncie aqui
+                Empresas
               </Button>
             </Link>
 
