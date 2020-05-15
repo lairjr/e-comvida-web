@@ -281,9 +281,15 @@ function List() {
     <Container>
       <Grid container spacing={4} style={{ paddingTop: "2rem" }}>
         <Grid item xs={12}>
-          <Typography component="h5" variant="h5">
-            Empresas a favor do isolamento
-          </Typography>
+          <span className="topic">
+            Estamos em quarentena e queremos gastar nosso
+          </span>
+
+          <br />
+
+          <span className="topic">
+            dinheirinho com empresas que suportam o isolamento
+          </span>
         </Grid>
 
         <Grid item xs={12}>
