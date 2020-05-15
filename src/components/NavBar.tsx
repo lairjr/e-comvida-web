@@ -51,11 +51,7 @@ function NavBar() {
           </Drawer>
         </Hidden>
 
-        <img
-          src={logo}
-          alt="É com vida"
-          style={{ width: "163px", height: "52px" }}
-        ></img>
+        <img src={logo} alt="É com vida"></img>
 
         <Hidden smDown>
           <Typography variant="h6" className="title">
