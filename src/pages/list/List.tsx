@@ -38,6 +38,7 @@ import Collapse from "@material-ui/core/Collapse";
 import createStyles from "@material-ui/core/styles/createStyles";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import { Theme } from "@material-ui/core/styles/createMuiTheme";
+import Fab from "@material-ui/core/Fab";
 
 // const MILES = 50;
 
@@ -78,6 +79,7 @@ const useStyles = makeStyles((theme: Theme) =>
     expand: {
       transform: "rotate(0deg)",
       marginLeft: "auto",
+      marginRight: ".5rem",
       transition: theme.transitions.create("transform", {
         duration: theme.transitions.duration.shortest,
       }),
@@ -227,16 +229,18 @@ function CompanyCard({ company }: CompanyCardProps) {
           <MapIcon color="secondary" />
         </IconButton>
 
-        <IconButton
+        <Fab
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded,
           })}
+          color="primary"
+          size="small"
           onClick={handleExpandClick}
           aria-expanded={expanded}
           aria-label="show more"
         >
           <ExpandMoreIcon />
-        </IconButton>
+        </Fab>
       </CardActions>
 
       <Collapse in={expanded} timeout="auto" unmountOnExit>
