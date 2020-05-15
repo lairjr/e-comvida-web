@@ -27,9 +27,19 @@ function About() {
             <p>
               Durante a pandemia, existem algumas empresas/empresários que estão
               realizando manifestações de apoio às medidas de isolamento social
-              através de comunicados em suas redes sociais, notícias e notas
-              públicas.
+              através de divercas acoes.
             </p>
+
+            <p>
+              As formas de apoio são aceitas para cadastro da empresa seguido de
+              uma fonte oficial para verificacao.
+            </p>
+
+            <p>Doaćoes</p>
+
+            <p>Fechamento voluntário</p>
+
+            <p>Manifestacao publica de apoio</p>
 
             <p>
               Com essa App queremos disponibilizar as formas de contato dessas

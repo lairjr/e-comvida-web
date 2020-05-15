@@ -58,7 +58,7 @@ function NavBar() {
         <img src={logo} alt="É com vida"></img>
 
         <Hidden smDown>
-          <span className="subtitle">economia da vida durante a pandemia</span>
+          <span className="subtitle">que retomamos a economia</span>
 
           <Grid container justify="flex-end" alignItems="center">
             <Link to="/map">

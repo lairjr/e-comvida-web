@@ -334,13 +334,13 @@ function List() {
       <Grid container spacing={4} style={{ paddingTop: "2rem" }}>
         <Grid item xs={12}>
           <span className="topic">
-            Estamos em quarentena e queremos gastar nosso
+            Gaste seu dinheirinho com quem pensou em todos no isolmaneto,
           </span>
 
           <br />
 
           <span className="topic">
-            dinheirinho com empresas que suportam o isolamento
+            teve idéias bacanas e cuidou bem das pessoas
           </span>
         </Grid>
 
