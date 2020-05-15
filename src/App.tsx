@@ -10,6 +10,39 @@ import firebase from "./firebase";
 import { ReactReduxFirebaseProvider } from "react-redux-firebase";
 import { createFirestoreInstance } from "redux-firestore";
 import About from "./pages/about/About";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      light: "#a05a86",
+      main: "#893168",
+      dark: "#5f2248",
+      contrastText: "#FDFDFD",
+    },
+    secondary: {
+      light: "#534858",
+      main: "#281B2F",
+      dark: "#1c1220",
+      contrastText: "#FDFDFD",
+    },
+  },
+  typography: {
+    fontFamily: ['"Baloo"'].join(","),
+  },
+  overrides: {
+    MuiCssBaseline: {
+      "@global": {
+        "@font-face": [
+          {
+            fontFamily: "Baloo",
+            src: `url('https://fonts.googleapis.com/css?family=Baloo');`,
+          },
+        ],
+      },
+    },
+  },
+});
 
 function App() {
   const rrfProps = {
@@ -26,27 +59,29 @@ function App() {
     <Provider store={store}>
       <ReactReduxFirebaseProvider {...rrfProps}>
         <Router>
-          <div className="app">
-            <NavBar />
+          <ThemeProvider theme={theme}>
+            <div className="app">
+              <NavBar />
 
-            <Switch>
-              <Route exact path="/">
-                <List />
-              </Route>
+              <Switch>
+                <Route exact path="/">
+                  <List />
+                </Route>
 
-              <Route exact path="/about">
-                <About />
-              </Route>
+                <Route exact path="/about">
+                  <About />
+                </Route>
 
-              <Route exact path="/list">
-                <List />
-              </Route>
+                <Route exact path="/list">
+                  <List />
+                </Route>
 
-              <Route exact path="/map">
-                <Map />
-              </Route>
-            </Switch>
-          </div>
+                <Route exact path="/map">
+                  <Map />
+                </Route>
+              </Switch>
+            </div>
+          </ThemeProvider>
         </Router>
       </ReactReduxFirebaseProvider>
     </Provider>
