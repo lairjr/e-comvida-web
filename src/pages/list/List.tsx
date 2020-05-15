@@ -25,8 +25,8 @@ import {
 } from "react-redux-firebase";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
-import { usePosition } from "../../helpers/usePosition";
-import firebase from "firebase";
+// import { usePosition } from "../../helpers/usePosition";
+// import firebase from "firebase";
 import Shimmer from "../../components/Shimmer";
 import useQueryParam from "../../helpers/useQueryParam";
 import Table from "@material-ui/core/Table";
@@ -39,7 +39,7 @@ import createStyles from "@material-ui/core/styles/createStyles";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import { Theme } from "@material-ui/core/styles/createMuiTheme";
 
-const MILES = 50;
+// const MILES = 50;
 
 interface GeoPoint {
   Pc: number;
@@ -285,22 +285,22 @@ function List() {
   const onChangeSearchTerm = (event: React.ChangeEvent<HTMLInputElement>) =>
     onFilterValueChange(event.target.value);
 
-  const { latitude, longitude } = usePosition();
+  // const { latitude, longitude } = usePosition();
 
-  const lat = 0.0144927536231884;
-  const lon = 0.0181818181818182;
+  // const lat = 0.0144927536231884;
+  // const lon = 0.0181818181818182;
 
-  const lowerLat = latitude - lat * MILES;
-  const lowerLon = longitude - lon * MILES;
+  // const lowerLat = latitude - lat * MILES;
+  // const lowerLon = longitude - lon * MILES;
 
-  const greaterLat = latitude + lat * MILES;
-  const greaterLon = longitude + lon * MILES;
+  // const greaterLat = latitude + lat * MILES;
+  // const greaterLon = longitude + lon * MILES;
 
-  const lesserGeopoint = new firebase.firestore.GeoPoint(lowerLat, lowerLon);
-  const greaterGeopoint = new firebase.firestore.GeoPoint(
-    greaterLat,
-    greaterLon
-  );
+  // const lesserGeopoint = new firebase.firestore.GeoPoint(lowerLat, lowerLon);
+  // const greaterGeopoint = new firebase.firestore.GeoPoint(
+  //   greaterLat,
+  //   greaterLon
+  // );
 
   const baseConn = [
     {
