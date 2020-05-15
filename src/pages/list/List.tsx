@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import TextField from "@material-ui/core/TextField";
 import Search from "@material-ui/icons/Search";
+import OpenInNewIcon from "@material-ui/icons/OpenInNew";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import "./List.css";
 import CardActions from "@material-ui/core/CardActions";
@@ -63,6 +64,11 @@ interface CompanyEntity {
 interface CompanyCardProps {
   company: CompanyEntity;
 }
+
+const SUPPORT_TEXT = new Map<string, string>([
+  ["publicNote", "Nota pública"],
+  ["donation", "Doacão"],
+]);
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -256,11 +262,13 @@ function CompanyCard({ company }: CompanyCardProps) {
               return (
                 <TableRow>
                   <TableCell className={classes.text} align="left">
-                    {support.type}
+                    {SUPPORT_TEXT.get(support.type)}
                   </TableCell>
 
                   <TableCell className={classes.text} align="right">
-                    {support.link}
+                    <IconButton aria-label="map">
+                      <OpenInNewIcon color="secondary" />
+                    </IconButton>
                   </TableCell>
                 </TableRow>
               );
@@ -297,10 +305,10 @@ function List() {
   const baseConn = [
     {
       collection: "companies",
-      where: [
-        ["geopoint", ">=", lesserGeopoint],
-        ["geopoint", "<=", greaterGeopoint],
-      ],
+      // where: [
+      //   ["geopoint", ">=", lesserGeopoint],
+      //   ["geopoint", "<=", greaterGeopoint],
+      // ],
     },
   ] as ReduxFirestoreQuerySetting[];
   const firestoneConn = filterValue
