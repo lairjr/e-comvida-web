@@ -1,8 +1,8 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
+import clsx from "clsx";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-import Chip from "@material-ui/core/Chip";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import TextField from "@material-ui/core/TextField";
 import Search from "@material-ui/icons/Search";
@@ -16,6 +16,7 @@ import InstagramIcon from "@material-ui/icons/Instagram";
 import MapIcon from "@material-ui/icons/Map";
 import FastfoodIcon from "@material-ui/icons/Fastfood";
 import Container from "@material-ui/core/Container";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Grid from "@material-ui/core/Grid";
 import {
   useFirestoreConnect,
@@ -27,6 +28,15 @@ import { usePosition } from "../../helpers/usePosition";
 import firebase from "firebase";
 import Shimmer from "../../components/Shimmer";
 import useQueryParam from "../../helpers/useQueryParam";
+import Table from "@material-ui/core/Table";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import TableCell from "@material-ui/core/TableCell";
+import TableBody from "@material-ui/core/TableBody";
+import Collapse from "@material-ui/core/Collapse";
+import createStyles from "@material-ui/core/styles/createStyles";
+import makeStyles from "@material-ui/core/styles/makeStyles";
+import { Theme } from "@material-ui/core/styles/createMuiTheme";
 
 const MILES = 50;
 
@@ -53,6 +63,24 @@ interface CompanyEntity {
 interface CompanyCardProps {
   company: CompanyEntity;
 }
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    text: {
+      fontFamily: "Roboto",
+    },
+    expand: {
+      transform: "rotate(0deg)",
+      marginLeft: "auto",
+      transition: theme.transitions.create("transform", {
+        duration: theme.transitions.duration.shortest,
+      }),
+    },
+    expandOpen: {
+      transform: "rotate(180deg)",
+    },
+  })
+);
 
 function LoadingCard() {
   return (
@@ -127,15 +155,15 @@ function LoadingCard() {
 function LoadingList() {
   return (
     <Fragment>
-      <Grid item lg={4} sm={6} xs={12}>
+      <Grid item xs={12}>
         <LoadingCard />
       </Grid>
 
-      <Grid item lg={4} sm={6} xs={12}>
+      <Grid item xs={12}>
         <LoadingCard />
       </Grid>
 
-      <Grid item lg={4} sm={6} xs={12}>
+      <Grid item xs={12}>
         <LoadingCard />
       </Grid>
     </Fragment>
@@ -143,61 +171,30 @@ function LoadingList() {
 }
 
 function CompanyCard({ company }: CompanyCardProps) {
+  const classes = useStyles();
+  const [expanded, setExpanded] = useState(false);
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
   return (
     <Card className="card" variant="outlined">
       <CardActionArea>
         <CardContent>
-          <Typography component="h5" variant="h5">
+          <Typography component="h5" variant="h5" color="primary">
             {company.name}
           </Typography>
 
-          {company.supports.map((support: SupportEntity) => {
-            switch (support.type) {
-              case "donation":
-                return (
-                  <a
-                    key="donation"
-                    href={support.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Chip clickable label="Doacão" color="primary" />
-                  </a>
-                );
-              case "publicNote":
-                return (
-                  <a
-                    key="publicNote"
-                    href={support.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Chip clickable label="Nota pública" color="primary" />
-                  </a>
-                );
-              default:
-                return (
-                  <a
-                    key="post"
-                    href={support.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Chip clickable label="Reducao de precos" color="primary" />
-                  </a>
-                );
-            }
-          })}
-
-          <Typography variant="subtitle1" color="textSecondary">
+          <Typography className={classes.text} component="p" color="secondary">
             {company.description}
           </Typography>
 
-          <Typography variant="subtitle1" color="textSecondary">
+          <Typography className={classes.text} component="p" color="secondary">
             {company.address}
           </Typography>
 
-          <Typography variant="subtitle1" color="textSecondary">
+          <Typography className={classes.text} component="p" color="secondary">
             {company.phone}
           </Typography>
         </CardContent>
@@ -205,25 +202,72 @@ function CompanyCard({ company }: CompanyCardProps) {
 
       <CardActions disableSpacing>
         <IconButton aria-label="facebook">
-          <FacebookIcon />
+          <FacebookIcon color="secondary" />
         </IconButton>
 
         <IconButton aria-label="whatsapp">
-          <WhatsAppIcon />
+          <WhatsAppIcon color="secondary" />
         </IconButton>
 
         <IconButton aria-label="instagram">
-          <InstagramIcon />
+          <InstagramIcon color="secondary" />
         </IconButton>
 
         <IconButton aria-label="fastfood">
-          <FastfoodIcon />
+          <FastfoodIcon color="secondary" />
         </IconButton>
 
         <IconButton aria-label="map">
-          <MapIcon />
+          <MapIcon color="secondary" />
+        </IconButton>
+
+        <IconButton
+          className={clsx(classes.expand, {
+            [classes.expandOpen]: expanded,
+          })}
+          onClick={handleExpandClick}
+          aria-expanded={expanded}
+          aria-label="show more"
+        >
+          <ExpandMoreIcon />
         </IconButton>
       </CardActions>
+
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <Table aria-label="spanning table">
+          <TableHead>
+            <TableRow>
+              <TableCell align="left">
+                <Typography variant="subtitle1" color="primary">
+                  Contribuicões
+                </Typography>
+              </TableCell>
+
+              <TableCell align="right">
+                <Typography variant="subtitle1" color="primary">
+                  Fonte
+                </Typography>
+              </TableCell>
+            </TableRow>
+          </TableHead>
+
+          <TableBody>
+            {company.supports.map((support: SupportEntity) => {
+              return (
+                <TableRow>
+                  <TableCell className={classes.text} align="left">
+                    {support.type}
+                  </TableCell>
+
+                  <TableCell className={classes.text} align="right">
+                    {support.link}
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </Collapse>
     </Card>
   );
 }
@@ -312,7 +356,7 @@ function List() {
       <Grid container spacing={1} style={{ paddingTop: "3rem" }}>
         {companies ? (
           companies.map((company: CompanyEntity) => (
-            <Grid item lg={4} sm={6} xs={12} key={company.id}>
+            <Grid item xs={12} key={company.id}>
               <CompanyCard company={company} />
             </Grid>
           ))
