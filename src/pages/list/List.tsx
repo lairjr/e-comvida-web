@@ -301,7 +301,19 @@ function CompanyCard({ company }: CompanyCardProps) {
   );
 }
 
+const useStylesList = makeStyles((theme: Theme) =>
+  createStyles({
+    gradient: {
+      background: `linear-gradient(45deg, ${theme.palette.secondary.dark}, ${theme.palette.primary.light})`,
+      "-webkit-background-clip": "text",
+      "-webkit-text-fill-color": "transparent",
+    },
+  })
+);
+
 function List() {
+  const classes = useStylesList();
+
   const { filterValue, onFilterValueChange } = useQueryParam("queryTerm");
   const onChangeSearchTerm = (event: React.ChangeEvent<HTMLInputElement>) =>
     onFilterValueChange(event.target.value);
@@ -356,7 +368,7 @@ function List() {
         <Grid item xs={12}>
           <Grid container>
             <Grid item xs={12} sm={8}>
-              <Box fontWeight="fontWeightBold">
+              <Box fontWeight="fontWeightBold" className={classes.gradient}>
                 Gaste seu dinheirinho com quem pensou em todos no isolmaneto,
                 teve idéias bacanas e cuidou bem das pessoas
               </Box>
