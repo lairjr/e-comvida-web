@@ -46,7 +46,7 @@ function Footer() {
             alignItems="center"
           >
             <Grid item xs={10}>
-              <span className={classes.appName}>e-comvida</span>
+              <span className={classes.appName}>é-comvida</span>
 
               <span className={classes.text}> - </span>
 
@@ -91,7 +91,7 @@ function Footer() {
         <Hidden mdUp>
           <Grid container direction="column" alignItems="center">
             <Grid item xs={12} style={{ textAlign: "center" }}>
-              <span className={classes.appName}>e-comvida</span>
+              <span className={classes.appName}>é-comvida</span>
 
               <span className={classes.text}> - </span>
 

@@ -15,6 +15,13 @@ import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    appName: {
+      color: theme.palette.primary.main,
+      fontFamily: theme.typography.fontFamily,
+      fontWeight: 700,
+      fontSize: "1.5rem",
+      paddingLeft: ".5rem",
+    },
     drawer: {
       backgroundColor: theme.palette.primary.dark,
     },
@@ -26,8 +33,14 @@ const useStyles = makeStyles((theme: Theme) =>
       fontFamily: theme.typography.fontFamily,
       fontWeight: 700,
     },
+    logoContainer: {
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "center",
+    },
     subtitle: {
       borderLeft: "1px solid",
+      fontFamily: theme.typography.fontFamily,
       fontSize: "1rem",
       marginLeft: "1rem",
       padding: "0.25rem 0 0.25rem 1rem",
@@ -47,7 +60,7 @@ function NavBar() {
         alignItems: "center",
         display: "flex",
         maxHeight: "4rem",
-        marginTop: "2rem",
+        marginTop: "1rem",
       }}
     >
       <Grid container alignItems="center">
@@ -88,8 +101,10 @@ function NavBar() {
           </Drawer>
         </Hidden>
 
-        <Link to="/">
+        <Link to="/" className={classes.logoContainer}>
           <img src={logo} alt="é-comvida"></img>
+
+          <span className={classes.appName}>é-comvida</span>
         </Link>
 
         <Hidden smDown>
