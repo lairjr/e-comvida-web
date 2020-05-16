@@ -11,6 +11,7 @@ import { ReactReduxFirebaseProvider } from "react-redux-firebase";
 import { createFirestoreInstance } from "redux-firestore";
 import About from "./pages/about/About";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import Footer from "./components/Footer";
 
 const theme = createMuiTheme({
   palette: {
@@ -80,6 +81,8 @@ function App() {
                   <Map />
                 </Route>
               </Switch>
+
+              <Footer />
             </div>
           </ThemeProvider>
         </Router>
