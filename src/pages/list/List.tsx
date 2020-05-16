@@ -1,7 +1,8 @@
 import React, { Fragment, useState } from "react";
 import clsx from "clsx";
 import Card from "@material-ui/core/Card";
-import Box from "@material-ui/core/Box";
+
+import Autocomplete from "@material-ui/lab/Autocomplete";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -42,7 +43,8 @@ import { Theme } from "@material-ui/core/styles/createMuiTheme";
 import Fab from "@material-ui/core/Fab";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
-import Input from "@material-ui/core/Input";
+import InputLabel from "@material-ui/core/InputLabel";
+import FormControl from "@material-ui/core/FormControl";
 
 // const MILES = 50;
 
@@ -56,6 +58,13 @@ const TYPES_OF_COMPANY = {
   turism: "Turismo",
   health: "Saúde",
 } as { [key: string]: string };
+
+interface CityEntity {
+  name: string;
+  state: string;
+}
+
+const cities: CityEntity[] = [{ name: "Santa Cruz do Sul", state: "RS" }];
 
 interface GeoPoint {
   Pc: number;
@@ -308,6 +317,10 @@ const useStylesList = makeStyles((theme: Theme) =>
       "-webkit-background-clip": "text",
       "-webkit-text-fill-color": "transparent",
     },
+    control: {
+      marginLeft: "1rem",
+      maxWidth: "300px",
+    },
   })
 );
 
@@ -386,21 +399,39 @@ function List() {
               Filtrar por:
             </Typography>
 
-            <Select
-              // onChange={handleChange}
-              input={<Input />}
-              // MenuProps={MenuProps}
-            >
-              <MenuItem key={"all"} value={""}>
-                Todos
-              </MenuItem>
+            <FormControl variant="outlined" className={classes.control}>
+              <InputLabel id="sector">Setor</InputLabel>
 
-              {Object.keys(TYPES_OF_COMPANY).map((key: string) => (
-                <MenuItem key={key} value={key}>
-                  {TYPES_OF_COMPANY[key]}
+              <Select
+                labelId="sector"
+                // value={age}
+                // onChange={handleChange}
+                label="Setor"
+              >
+                <MenuItem value="">
+                  <em>Todos</em>
                 </MenuItem>
-              ))}
-            </Select>
+
+                {Object.keys(TYPES_OF_COMPANY).map((key: string) => (
+                  <MenuItem key={key} value={key}>
+                    {TYPES_OF_COMPANY[key]}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+
+            <FormControl className={classes.control}>
+              <Autocomplete
+                options={cities}
+                getOptionLabel={(city: CityEntity) =>
+                  `${city.name} - ${city.state}`
+                }
+                style={{ width: 300 }}
+                renderInput={(params: any) => (
+                  <TextField {...params} label="Cidade" variant="outlined" />
+                )}
+              />
+            </FormControl>
           </div>
         </Grid>
 
