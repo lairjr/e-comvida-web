@@ -58,6 +58,7 @@ function NavBar() {
 
           <Drawer
             open={isMenuOpen}
+            onClick={toogleIsMenuOpen}
             onClose={toogleIsMenuOpen}
             PaperProps={{ className: classes.drawer }}
           >
