@@ -276,9 +276,9 @@ function CompanyCard({ company }: CompanyCardProps) {
           </TableHead>
 
           <TableBody>
-            {company.supports.map((support: SupportEntity) => {
+            {company.supports.map((support: SupportEntity, index: number) => {
               return (
-                <TableRow>
+                <TableRow key={index}>
                   <TableCell className={classes.text} align="left">
                     {SUPPORT_TEXT.get(support.type)}
                   </TableCell>
