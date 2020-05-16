@@ -1,5 +1,7 @@
 import React, { Fragment } from "react";
 
+import { default as MaterialCard } from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
@@ -27,6 +29,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Card, { LoadingCard } from "./Card";
 import { TYPES_OF_COMPANY, CITIES } from "../../redux/constans";
 import { CityEntity, CompanyEntity } from "../../redux/entities";
+import { Hidden } from "@material-ui/core";
 
 function LoadingList() {
   return (
@@ -129,47 +132,101 @@ function List() {
           </Grid>
         </Grid>
 
-        <Grid item xs={12}>
-          <div className="filter">
-            <Typography variant="h6" color="primary" className="label">
-              Filtrar por:
-            </Typography>
+        <Hidden smDown>
+          <Grid item xs={12}>
+            <div className="filter">
+              <Typography variant="h6" color="primary" className="label">
+                Filtrar por:
+              </Typography>
 
-            <FormControl variant="outlined" className={classes.control}>
-              <InputLabel id="sector">Setor</InputLabel>
+              <FormControl variant="outlined" className={classes.control}>
+                <InputLabel id="sector">Setor</InputLabel>
 
-              <Select
-                labelId="sector"
-                // value={age}
-                // onChange={handleChange}
-                label="Setor"
-              >
-                <MenuItem value="">
-                  <em>Todos</em>
-                </MenuItem>
-
-                {Object.keys(TYPES_OF_COMPANY).map((key: string) => (
-                  <MenuItem key={key} value={key}>
-                    {TYPES_OF_COMPANY[key]}
+                <Select
+                  labelId="sector"
+                  // value={age}
+                  // onChange={handleChange}
+                  label="Setor"
+                >
+                  <MenuItem value="">
+                    <em>Todos</em>
                   </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
 
-            <FormControl className={classes.control}>
-              <Autocomplete
-                options={CITIES}
-                getOptionLabel={(city: CityEntity) =>
-                  `${city.name} - ${city.state}`
-                }
-                style={{ width: 300 }}
-                renderInput={(params: any) => (
-                  <TextField {...params} label="Cidade" variant="outlined" />
-                )}
-              />
-            </FormControl>
-          </div>
-        </Grid>
+                  {Object.keys(TYPES_OF_COMPANY).map((key: string) => (
+                    <MenuItem key={key} value={key}>
+                      {TYPES_OF_COMPANY[key]}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+
+              <FormControl className={classes.control}>
+                <Autocomplete
+                  options={CITIES}
+                  getOptionLabel={(city: CityEntity) =>
+                    `${city.name} - ${city.state}`
+                  }
+                  renderInput={(params: any) => (
+                    <TextField {...params} label="Cidade" variant="outlined" />
+                  )}
+                />
+              </FormControl>
+            </div>
+          </Grid>
+        </Hidden>
+
+        <Hidden mdUp>
+          <Grid item xs={12}>
+            <MaterialCard
+              variant="outlined"
+              style={{ backgroundColor: "transparent" }}
+            >
+              <CardContent>
+                <Typography color="secondary">Filtros</Typography>
+
+                <Grid container>
+                  <Grid item xs={12}>
+                    <FormControl fullWidth>
+                      <InputLabel id="sector">Setor</InputLabel>
+
+                      <Select
+                        labelId="sector"
+                        // value={age}
+                        // onChange={handleChange}
+                        label="Setor"
+                        fullWidth
+                      >
+                        <MenuItem value="">
+                          <em>Todos</em>
+                        </MenuItem>
+
+                        {Object.keys(TYPES_OF_COMPANY).map((key: string) => (
+                          <MenuItem key={key} value={key}>
+                            {TYPES_OF_COMPANY[key]}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  </Grid>
+
+                  <Grid item xs={12}>
+                    <FormControl fullWidth>
+                      <Autocomplete
+                        options={CITIES}
+                        getOptionLabel={(city: CityEntity) =>
+                          `${city.name} - ${city.state}`
+                        }
+                        renderInput={(params: any) => (
+                          <TextField {...params} label="Cidade" fullWidth />
+                        )}
+                      />
+                    </FormControl>
+                  </Grid>
+                </Grid>
+              </CardContent>
+            </MaterialCard>
+          </Grid>
+        </Hidden>
 
         <Grid item xs={12}>
           <TextField

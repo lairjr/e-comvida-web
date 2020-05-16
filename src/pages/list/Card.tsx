@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import clsx from "clsx";
 import { default as MaterialCard } from "@material-ui/core/Card";
-
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -15,8 +14,6 @@ import InstagramIcon from "@material-ui/icons/Instagram";
 import MapIcon from "@material-ui/icons/Map";
 import FastfoodIcon from "@material-ui/icons/Fastfood";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-// import { usePosition } from "../../helpers/usePosition";
-// import firebase from "firebase";
 import Shimmer from "../../components/Shimmer";
 import Table from "@material-ui/core/Table";
 import TableHead from "@material-ui/core/TableHead";

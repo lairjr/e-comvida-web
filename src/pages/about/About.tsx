@@ -58,7 +58,7 @@ function About() {
             <Link to="/add" className={classes.highlight}>
               {` cadastro `}
             </Link>
-            da empresa seguido de uma fonte oficial para verificacao.
+            da empresa seguido de uma fonte oficial para verificação são:
           </p>
 
           <Typography component="p" variant="h5" color="primary">
