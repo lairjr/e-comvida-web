@@ -1,12 +1,7 @@
-@import url("https://fonts.googleapis.com/css?family=Baloo");
+@import url("https://fonts.googleapis.com/css2?family=Baloo+Da+2&display=swap");
 
 body {
   margin: 0;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
 }
 
 a:link {

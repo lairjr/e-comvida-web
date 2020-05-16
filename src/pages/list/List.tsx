@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from "react";
 import clsx from "clsx";
 import Card from "@material-ui/core/Card";
+import Box from "@material-ui/core/Box";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -87,9 +88,6 @@ const SUPPORT_TEXT = new Map<string, string>([
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    text: {
-      fontFamily: "Roboto",
-    },
     expand: {
       transform: "rotate(0deg)",
       marginLeft: "auto",
@@ -204,19 +202,24 @@ function CompanyCard({ company }: CompanyCardProps) {
     <Card className="card" variant="outlined">
       <CardActionArea>
         <CardContent>
-          <Typography component="h5" variant="h5" color="primary">
+          <Typography
+            component="h5"
+            variant="h5"
+            color="primary"
+            style={{ fontWeight: 700 }}
+          >
             {company.name}
           </Typography>
 
-          <Typography className={classes.text} component="p" color="secondary">
+          <Typography component="p" color="secondary">
             {company.description}
           </Typography>
 
-          <Typography className={classes.text} component="p" color="secondary">
+          <Typography component="p" color="secondary">
             {company.address}
           </Typography>
 
-          <Typography className={classes.text} component="p" color="secondary">
+          <Typography component="p" color="secondary">
             {company.phone}
           </Typography>
         </CardContent>
@@ -279,11 +282,11 @@ function CompanyCard({ company }: CompanyCardProps) {
             {company.supports.map((support: SupportEntity, index: number) => {
               return (
                 <TableRow key={index}>
-                  <TableCell className={classes.text} align="left">
+                  <TableCell align="left">
                     {SUPPORT_TEXT.get(support.type)}
                   </TableCell>
 
-                  <TableCell className={classes.text} align="right">
+                  <TableCell align="right">
                     <IconButton aria-label="map">
                       <OpenInNewIcon color="secondary" />
                     </IconButton>
@@ -351,15 +354,14 @@ function List() {
     <Container>
       <Grid container spacing={4} style={{ paddingTop: "2rem" }}>
         <Grid item xs={12}>
-          <span className="topic">
-            Gaste seu dinheirinho com quem pensou em todos no isolmaneto,
-          </span>
-
-          <br />
-
-          <span className="topic">
-            teve idéias bacanas e cuidou bem das pessoas
-          </span>
+          <Grid container>
+            <Grid item xs={12} sm={8}>
+              <Box fontWeight="fontWeightBold">
+                Gaste seu dinheirinho com quem pensou em todos no isolmaneto,
+                teve idéias bacanas e cuidou bem das pessoas
+              </Box>
+            </Grid>
+          </Grid>
         </Grid>
 
         <Grid item xs={12}>

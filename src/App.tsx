@@ -29,15 +29,15 @@ const theme = createMuiTheme({
     },
   },
   typography: {
-    fontFamily: ['"Baloo"'].join(","),
+    fontFamily: ['"Baloo Da 2", cursive'].join(","),
   },
   overrides: {
     MuiCssBaseline: {
       "@global": {
         "@font-face": [
           {
-            fontFamily: "Baloo",
-            src: `url('https://fonts.googleapis.com/css?family=Baloo');`,
+            fontFamily: "Baloo Da 2",
+            src: `url('https://fonts.googleapis.com/css2?family=Baloo+Da+2&display=swap');`,
           },
         ],
       },
