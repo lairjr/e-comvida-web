@@ -368,10 +368,14 @@ function List() {
         <Grid item xs={12}>
           <Grid container>
             <Grid item xs={12} sm={8}>
-              <Box fontWeight="fontWeightBold" className={classes.gradient}>
-                Gaste seu dinheirinho com quem pensou em todos no isolamento,
-                teve idéias bacanas e cuidou bem das pessoas
-              </Box>
+              <Typography
+                component="h4"
+                variant="h4"
+                className={classes.gradient}
+              >
+                Gaste seu dinheirinho com quem pensou em todos no isolamento e
+                cuidou bem das pessoas
+              </Typography>
             </Grid>
           </Grid>
         </Grid>

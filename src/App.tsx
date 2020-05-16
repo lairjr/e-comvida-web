@@ -12,6 +12,7 @@ import { createFirestoreInstance } from "redux-firestore";
 import About from "./pages/about/About";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import Footer from "./components/Footer";
+import Add from "./pages/add/Add";
 
 const theme = createMuiTheme({
   palette: {
@@ -71,6 +72,10 @@ function App() {
 
                 <Route exact path="/about">
                   <About />
+                </Route>
+
+                <Route exact path="/add">
+                  <Add />
                 </Route>
 
                 <Route exact path="/list">

@@ -72,7 +72,7 @@ function NavBar() {
               <Divider />
 
               <ListItem button key="map">
-                <Link to="/map">
+                <Link to="/add">
                   <span className={classes.listItem}>Map</span>
                 </Link>
               </ListItem>
@@ -96,7 +96,7 @@ function NavBar() {
           <span className={classes.subtitle}>que retomamos a economia</span>
 
           <Grid container justify="flex-end" alignItems="center">
-            <Link to="/map">
+            <Link to="/add">
               <Button
                 variant="contained"
                 color="primary"

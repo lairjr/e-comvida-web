@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-function About() {
+function Add() {
   const classes = useStyles();
 
   return (
@@ -37,61 +37,21 @@ function About() {
       <Grid container spacing={4} alignItems="center" direction="column">
         <Grid item xs={12} style={{ paddingTop: "3rem" }}>
           <Typography component="h4" variant="h4" className={classes.gradient}>
-            Sobre
-          </Typography>
-        </Grid>
-
-        <Grid item xs={12} className={classes.text}>
-          <p>
-            Durante a pandemia, existem algumas empresas/empresários que estão
-            realizando manifestações de apoio às medidas de isolamento social
-            através de divercas acoes.
-          </p>
-
-          <p>
-            Com essa App queremos disponibilizar as formas de contato dessas
-            empresas para que pessoas interessados em consumir seus produtos.
-          </p>
-
-          <p>
-            As formas de apoio são aceitas para
-            <Link to="/add" className={classes.highlight}>
-              {` cadastro `}
-            </Link>
-            da empresa seguido de uma fonte oficial para verificacao.
-          </p>
-
-          <Typography component="p" variant="h5" color="primary">
-            Doações
-          </Typography>
-
-          <p>Texto de o que é considerado doacao.</p>
-
-          <Typography component="p" variant="h5" color="primary">
-            Fechamento voluntário
-          </Typography>
-
-          <p>Texto de o que é fechamento voluntario.</p>
-
-          <Typography component="p" variant="h5" color="primary">
-            Manifestação pública de apoio
-          </Typography>
-
-          <p>Text sobre o que é manifestacao publica</p>
-        </Grid>
-
-        <Grid item xs={12}>
-          <Typography component="h4" variant="h4" className={classes.gradient}>
-            Mande seu feedback
+            Queremos saber quem você é
           </Typography>
         </Grid>
 
         <Grid item xs={12} className={classes.text}>
           <form noValidate autoComplete="off">
-            <TextField label="Nome" type="text" variant="outlined" fullWidth />
+            <TextField
+              label="Nome da empresa"
+              type="text"
+              variant="outlined"
+              fullWidth
+            />
 
             <TextField
-              label="Assunto"
+              label="Endereco"
               type="text"
               variant="outlined"
               fullWidth
@@ -99,12 +59,10 @@ function About() {
             />
 
             <TextField
-              label="Mensagem"
+              label="Descricao"
               type="text"
               variant="outlined"
-              multiline
               fullWidth
-              rows={6}
               style={{ marginTop: "1rem" }}
             />
 
@@ -128,4 +86,4 @@ function About() {
   );
 }
 
-export default About;
+export default Add;
