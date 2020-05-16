@@ -4,101 +4,122 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    gradient: {
+      background: `linear-gradient(45deg, ${theme.palette.secondary.dark}, ${theme.palette.primary.light})`,
+      "-webkit-background-clip": "text",
+      "-webkit-text-fill-color": "transparent",
+    },
+    highlight: {
+      color: theme.palette.primary.main,
+      fontFamily: theme.typography.fontFamily,
+      fontWeight: 700,
+    },
+    text: {
+      color: theme.palette.secondary.main,
+      fontFamily: theme.typography.fontFamily,
+      fontSize: "1.3rem",
+      maxWidth: "700px",
+      textAlign: "center",
+    },
+  })
+);
 
 function About() {
+  const classes = useStyles();
+
   return (
     <Container>
       <Grid container spacing={4} alignItems="center" direction="column">
-        <Grid item xs={12} style={{ paddingTop: "5rem" }}>
-          <Typography component="h5" variant="h5" color="primary">
-            Sobre e-comvida
+        <Grid item xs={12} style={{ paddingTop: "3rem" }}>
+          <Typography component="h4" variant="h4" className={classes.gradient}>
+            Sobre
           </Typography>
         </Grid>
 
-        <Grid item xs={12}>
-          <div
-            style={{
-              color: "#050404",
-              fontSize: "1.3rem",
-              textAlign: "center",
-              maxWidth: "600px",
-            }}
-          >
-            <p>
-              Durante a pandemia, existem algumas empresas/empresários que estão
-              realizando manifestações de apoio às medidas de isolamento social
-              através de divercas acoes.
-            </p>
+        <Grid item xs={12} className={classes.text}>
+          <p>
+            Durante a pandemia, existem algumas empresas/empresários que estão
+            realizando manifestações de apoio às medidas de isolamento social
+            através de divercas acoes.
+          </p>
 
-            <p>
-              As formas de apoio são aceitas para cadastro da empresa seguido de
-              uma fonte oficial para verificacao.
-            </p>
+          <p>
+            Com essa App queremos disponibilizar as formas de contato dessas
+            empresas para que pessoas interessados em consumir seus produtos.
+          </p>
 
-            <p>Doaćoes</p>
+          <p>
+            As formas de apoio são aceitas para
+            <Link to="/map" className={classes.highlight}>
+              {` cadastro `}
+            </Link>
+            da empresa seguido de uma fonte oficial para verificacao.
+          </p>
 
-            <p>Fechamento voluntário</p>
+          <Typography component="p" variant="h5" color="primary">
+            Doações
+          </Typography>
 
-            <p>Manifestacao publica de apoio</p>
+          <p>Texto de o que é considerado doacao.</p>
 
-            <p>
-              Com essa App queremos disponibilizar as formas de contato dessas
-              empresas para que pessoas interessados em consumir seus produtos.
-            </p>
-          </div>
+          <Typography component="p" variant="h5" color="primary">
+            Fechamento voluntário
+          </Typography>
+
+          <p>Texto de o que é fechamento voluntario.</p>
+
+          <Typography component="p" variant="h5" color="primary">
+            Manifestação pública de apoio
+          </Typography>
+
+          <p>Text sobre o que é manifestacao publica</p>
         </Grid>
 
         <Grid item xs={12}>
-          <Typography component="h5" variant="h5" color="primary">
+          <Typography component="h4" variant="h4" className={classes.gradient}>
             Mande seu feedback
           </Typography>
         </Grid>
 
-        <Grid item xs={12}>
+        <Grid item xs={12} className={classes.text}>
           <form noValidate autoComplete="off">
-            <Grid container alignItems="center" direction="column" spacing={1}>
-              <Grid item xs={12}>
-                <TextField
-                  label="Nome"
-                  type="text"
-                  variant="outlined"
-                  fullWidth
-                />
-              </Grid>
+            <TextField label="Nome" type="text" variant="outlined" fullWidth />
 
-              <Grid item xs={12}>
-                <TextField
-                  label="Assunto"
-                  type="text"
-                  variant="outlined"
-                  fullWidth
-                />
-              </Grid>
+            <TextField
+              label="Assunto"
+              type="text"
+              variant="outlined"
+              fullWidth
+              style={{ marginTop: "1rem" }}
+            />
 
-              <Grid item xs={12}>
-                <TextField
-                  label="Mensagem"
-                  type="text"
-                  variant="outlined"
-                  multiline
-                  fullWidth
-                  rows={6}
-                />
-              </Grid>
+            <TextField
+              label="Mensagem"
+              type="text"
+              variant="outlined"
+              multiline
+              fullWidth
+              rows={6}
+              style={{ marginTop: "1rem" }}
+            />
 
-              <Grid item xs={12} style={{ paddingTop: "1rem" }}>
-                <Button variant="contained" color="secondary">
-                  Cancelar
-                </Button>
+            <Grid item xs={12} style={{ paddingTop: "1rem" }}>
+              <Button variant="contained" color="secondary">
+                Cancelar
+              </Button>
 
-                <Button
-                  variant="contained"
-                  color="primary"
-                  style={{ marginLeft: "1rem" }}
-                >
-                  Enviar
-                </Button>
-              </Grid>
+              <Button
+                variant="contained"
+                color="primary"
+                style={{ marginLeft: "1rem" }}
+              >
+                Enviar
+              </Button>
             </Grid>
           </form>
         </Grid>
