@@ -7,3 +7,12 @@
 .topic {
   color: #050404;
 }
+
+.filter {
+  display: flex;
+  max-width: 400px;
+}
+
+.filter .label {
+  padding-right: 1rem;
+}

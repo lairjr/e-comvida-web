@@ -55,7 +55,9 @@ function NavBar() {
           </Drawer>
         </Hidden>
 
-        <img src={logo} alt="É com vida"></img>
+        <Link to="/">
+          <img src={logo} alt="é-comvida"></img>
+        </Link>
 
         <Hidden smDown>
           <span className="subtitle">que retomamos a economia</span>

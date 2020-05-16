@@ -39,8 +39,22 @@ import createStyles from "@material-ui/core/styles/createStyles";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import { Theme } from "@material-ui/core/styles/createMuiTheme";
 import Fab from "@material-ui/core/Fab";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import Input from "@material-ui/core/Input";
 
 // const MILES = 50;
+
+const TYPES_OF_COMPANY = {
+  furniture: "Móveis",
+  clothing: "Roupas",
+  it: "Tecnologia a Informacao",
+  restaurant: "Restaurantes",
+  market: "Supermercados",
+  transport: "Transportes",
+  turism: "Turismo",
+  health: "Saúde",
+} as { [key: string]: string };
 
 interface GeoPoint {
   Pc: number;
@@ -349,8 +363,32 @@ function List() {
         </Grid>
 
         <Grid item xs={12}>
+          <div className="filter">
+            <Typography variant="h6" color="primary" className="label">
+              Filtrar por:
+            </Typography>
+
+            <Select
+              // onChange={handleChange}
+              input={<Input />}
+              // MenuProps={MenuProps}
+            >
+              <MenuItem key={"all"} value={""}>
+                Todos
+              </MenuItem>
+
+              {Object.keys(TYPES_OF_COMPANY).map((key: string) => (
+                <MenuItem key={key} value={key}>
+                  {TYPES_OF_COMPANY[key]}
+                </MenuItem>
+              ))}
+            </Select>
+          </div>
+        </Grid>
+
+        <Grid item xs={12}>
           <TextField
-            placeholder="Pesquise"
+            placeholder="Nome do estabelecimento"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
