@@ -42,47 +42,31 @@ function About() {
 
         <Grid item xs={12} className={classes.text}>
           <p>
-            Durante a pandemia, existem algumas empresas/empresários que estão
-            realizando manifestações de apoio às medidas de isolamento social
-            através de divercas acoes.
+            A gente acha sensacional quem na crise conseguiu pensar nas pessoas
+            e de forma criativa e sensível conseguiu passar por tudo isso.
+            Empresas e empresários que apoiam as medidas de isolamento e de
+            maneira empática enfrentam as dificuldades econômicas merecem o
+            nosso respeito e não podem ser esquecidos.
           </p>
 
           <p>
-            Com essa App queremos disponibilizar as formas de contato dessas
-            empresas para que pessoas interessados em consumir seus produtos.
+            Queremos com esse aplicativo refrescar a memória de todos e
+            agruparmos aqui essas "grandes" empresas. Enormes na maneira de
+            agir! =)
           </p>
 
           <p>
-            As formas de apoio são aceitas para
             <Link to="/add" className={classes.highlight}>
-              {` cadastro `}
+              {`Mande `}
             </Link>
-            da empresa seguido de uma fonte oficial para verificação são:
+            pra nós as dicas com o nome da empresa e alguma forma de validarmos
+            a maneira de conduzir as ações: seja por quem realizou doações,
+            realizaram fechamento voluntário, pensou de forma carinhosa em seus
+            colaboradores, manifestou apoio ao isolamento ou alguma outra ações
+            que fez você pensar: nossa, vocês mandaram ver!
           </p>
 
-          <Typography component="p" variant="h5" color="primary">
-            Doações
-          </Typography>
-
-          <p>Empresas que realizaram doações.</p>
-
-          <Typography component="p" variant="h5" color="primary">
-            Fechamento voluntário
-          </Typography>
-
-          <p>
-            Empresas que fizeram fechando dos estabelecimentos de forma
-            voluntária.
-          </p>
-
-          <Typography component="p" variant="h5" color="primary">
-            Manifestação pública de apoio
-          </Typography>
-
-          <p>
-            Empresas que manifestaram publicamente apoio às medidas de
-            isolamento social.
-          </p>
+          <p>Não deixe de nos contar! Elas merecem nosso respeito!</p>
         </Grid>
 
         <Grid item xs={12}>
