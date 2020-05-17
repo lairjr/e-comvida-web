@@ -7,7 +7,6 @@ import TextField from "@material-ui/core/TextField";
 import Search from "@material-ui/icons/Search";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import "./List.css";
-
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import { useFirestoreConnect, WhereOptions } from "react-redux-firebase";
@@ -121,14 +120,27 @@ function List() {
         <Grid item xs={12}>
           <Grid container>
             <Grid item xs={12} sm={8}>
-              <Typography
-                component="h4"
-                variant="h4"
-                className={classes.gradient}
-              >
-                Gaste seu dinheirinho com quem pensou em todos no isolamento e
-                cuidou bem das pessoas
-              </Typography>
+              <Hidden smDown>
+                <Typography
+                  component="h4"
+                  variant="h4"
+                  className={classes.gradient}
+                >
+                  Gaste seu dinheirinho com quem pensou em todos no isolamento e
+                  cuidou bem das pessoas
+                </Typography>
+              </Hidden>
+
+              <Hidden mdUp>
+                <Typography
+                  component="h6"
+                  variant="h6"
+                  className={classes.gradient}
+                >
+                  Gaste seu dinheirinho com quem pensou em todos no isolamento e
+                  cuidou bem das pessoas
+                </Typography>
+              </Hidden>
             </Grid>
           </Grid>
         </Grid>
