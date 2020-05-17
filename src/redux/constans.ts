@@ -15,10 +15,11 @@ export const TYPES_OF_COMPANY = {
 export const SUPPORT_TEXT = new Map<string, string>([
   ["publicNote", "Nota pública"],
   ["donation", "Doacão"],
+  ["voluntaryIsolation", "Fechamento voluntário"],
 ]);
 
 export const TYPES_OF_SUPPORT: { [key: string]: string } = {
   donation: "Doacão",
   publicNote: "Nota pública",
-  voluntaryIsolation: "Isolamento voluntário",
+  voluntaryIsolation: "Fechamento voluntário",
 };

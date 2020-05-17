@@ -64,19 +64,25 @@ function About() {
             Doações
           </Typography>
 
-          <p>Texto de o que é considerado doacao.</p>
+          <p>Empresas que realizaram doações.</p>
 
           <Typography component="p" variant="h5" color="primary">
             Fechamento voluntário
           </Typography>
 
-          <p>Texto de o que é fechamento voluntario.</p>
+          <p>
+            Empresas que fizeram fechando dos estabelecimentos de forma
+            voluntária.
+          </p>
 
           <Typography component="p" variant="h5" color="primary">
             Manifestação pública de apoio
           </Typography>
 
-          <p>Text sobre o que é manifestacao publica</p>
+          <p>
+            Empresas que manifestaram publicamente apoio às medidas de
+            isolamento social.
+          </p>
         </Grid>
 
         <Grid item xs={12}>
