@@ -110,6 +110,7 @@ function List() {
   useFirestoreConnect({
     collection: "companies",
     where: where.length > 0 ? where : undefined,
+    orderBy: ["name", "desc"],
   });
 
   const companies = useSelector(companiesByName(nameFilterValue));
@@ -223,11 +224,27 @@ function List() {
 
       <Grid container spacing={1} style={{ paddingTop: "3rem" }}>
         {companies ? (
-          companies.map((company: CompanyEntity) => (
-            <Grid item xs={12} key={company.id}>
-              <Card company={company} />
-            </Grid>
-          ))
+          <Fragment>
+            {companies.length > 0 ? (
+              companies.map((company: CompanyEntity) => (
+                <Grid item xs={12} key={company.id}>
+                  <Card company={company} />
+                </Grid>
+              ))
+            ) : (
+              <Grid item xs={12} style={{ textAlign: "center" }}>
+                <Typography component="h5" variant="h5" color="secondary">
+                  :(
+                </Typography>
+                <Typography component="h5" variant="h5" color="secondary">
+                  nenhum lugar encontrado
+                </Typography>
+                <Typography component="h5" variant="h5" color="secondary">
+                  ainda estamos melhorando nossa busca
+                </Typography>
+              </Grid>
+            )}
+          </Fragment>
         ) : (
           <LoadingList />
         )}

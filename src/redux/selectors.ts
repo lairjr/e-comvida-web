@@ -7,11 +7,13 @@ export const companiesByName = (nameSearch: string | null) => (
   const companies = state.firestore.ordered.companies;
 
   if (nameSearch) {
-    return companies.filter((company: CompanyEntity) => {
-      return company.name
-        .toLocaleLowerCase()
-        .startsWith(nameSearch.toLocaleLowerCase());
-    });
+    return companies
+      ? companies.filter((company: CompanyEntity) => {
+          return company.name
+            .toLocaleLowerCase()
+            .startsWith(nameSearch.toLocaleLowerCase());
+        })
+      : [];
   }
   return companies;
 };
