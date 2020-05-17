@@ -5,6 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
+import CitySelect from "../../components/CitySelect";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,6 +32,10 @@ const useStyles = makeStyles((theme: Theme) =>
 function Add() {
   const classes = useStyles();
 
+  const onCityChange = (event: any, value: any) => {
+    console.log(value);
+  };
+
   return (
     <Container>
       <Grid container spacing={4} alignItems="center" direction="column">
@@ -47,6 +52,19 @@ function Add() {
               type="text"
               variant="outlined"
               fullWidth
+            />
+
+            <CitySelect
+              onChange={onCityChange}
+              renderInput={(params: any) => (
+                <TextField
+                  {...params}
+                  fullWidth
+                  label="Cidade"
+                  variant="outlined"
+                  style={{ marginTop: "1rem" }}
+                />
+              )}
             />
 
             <TextField

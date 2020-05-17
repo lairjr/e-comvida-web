@@ -30,6 +30,7 @@ import { TYPES_OF_COMPANY } from "../../redux/constans";
 import { CompanyEntity } from "../../redux/entities";
 import { Hidden } from "@material-ui/core";
 import CitySelect from "../../components/CitySelect";
+import SectorSelect from "../../components/SectorSelect";
 
 function LoadingList() {
   return (
@@ -79,6 +80,17 @@ function List() {
   } = useQueryParam("city");
   const onCityChange = (event: any, value: any) => {
     onCityFilterValueChange(value ? value.id : "");
+  };
+
+  const {
+    filterValue: sectorFilterValue,
+    onFilterValueChange: onSectorFilterValueChange,
+  } = useQueryParam("sector");
+  const onSectorChange = (
+    event: React.ChangeEvent<{ name?: string; value: unknown }>
+  ) => {
+    console.log(event.target);
+    onSectorFilterValueChange(event.target.value as string);
   };
 
   // const { latitude, longitude } = usePosition();
@@ -153,22 +165,7 @@ function List() {
               <FormControl variant="outlined" className={classes.control}>
                 <InputLabel id="sector">Setor</InputLabel>
 
-                <Select
-                  labelId="sector"
-                  // value={age}
-                  // onChange={handleChange}
-                  label="Setor"
-                >
-                  <MenuItem value="">
-                    <em>Todos</em>
-                  </MenuItem>
-
-                  {Object.keys(TYPES_OF_COMPANY).map((key: string) => (
-                    <MenuItem key={key} value={key}>
-                      {TYPES_OF_COMPANY[key]}
-                    </MenuItem>
-                  ))}
-                </Select>
+                <SectorSelect onChange={onSectorChange} />
               </FormControl>
 
               <FormControl className={classes.control}>
@@ -197,23 +194,7 @@ function List() {
                     <FormControl fullWidth>
                       <InputLabel id="sector">Setor</InputLabel>
 
-                      <Select
-                        labelId="sector"
-                        // value={age}
-                        // onChange={handleChange}
-                        label="Setor"
-                        fullWidth
-                      >
-                        <MenuItem value="">
-                          <em>Todos</em>
-                        </MenuItem>
-
-                        {Object.keys(TYPES_OF_COMPANY).map((key: string) => (
-                          <MenuItem key={key} value={key}>
-                            {TYPES_OF_COMPANY[key]}
-                          </MenuItem>
-                        ))}
-                      </Select>
+                      <SectorSelect onChange={onSectorChange} />
                     </FormControl>
                   </Grid>
 
