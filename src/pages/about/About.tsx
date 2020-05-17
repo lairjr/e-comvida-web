@@ -2,10 +2,9 @@ import React from "react";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
 import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
+import EmailForm from "../../components/EmailForm";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -87,41 +86,7 @@ function About() {
         </Grid>
 
         <Grid item xs={12} className={classes.text}>
-          <form noValidate autoComplete="off">
-            <TextField label="Nome" type="text" variant="outlined" fullWidth />
-
-            <TextField
-              label="Assunto"
-              type="text"
-              variant="outlined"
-              fullWidth
-              style={{ marginTop: "1rem" }}
-            />
-
-            <TextField
-              label="Mensagem"
-              type="text"
-              variant="outlined"
-              multiline
-              fullWidth
-              rows={6}
-              style={{ marginTop: "1rem" }}
-            />
-
-            <Grid item xs={12} style={{ paddingTop: "1rem" }}>
-              <Button variant="contained" color="secondary">
-                Cancelar
-              </Button>
-
-              <Button
-                variant="contained"
-                color="primary"
-                style={{ marginLeft: "1rem" }}
-              >
-                Enviar
-              </Button>
-            </Grid>
-          </form>
+          <EmailForm />
         </Grid>
       </Grid>
     </Container>
