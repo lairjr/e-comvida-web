@@ -40,8 +40,45 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface AddFormValues {
   name: string;
+  city: { [key: string]: any } | undefined;
+  sectors: { [key: string]: any }[] | undefined;
+  address: string;
   supports: SupportEntity[];
 }
+
+const DEFAULT_ADD_FORM_VALUES: AddFormValues = {
+  name: "",
+  city: undefined,
+  sectors: undefined,
+  address: "",
+  supports: [{ type: "", source: "" }],
+};
+
+const validate = (formValues: AddFormValues) => {
+  const requiredFieds = {} as { [key: string]: any };
+
+  if (!formValues.name) {
+    requiredFieds["name"] = "Nome é obrigatório";
+  }
+
+  if (!formValues.city) {
+    requiredFieds["city"] = "Cidade é obrigatório";
+  }
+
+  if (!formValues.sectors) {
+    requiredFieds["sectors"] = "Atividade é obrigatório";
+  }
+
+  if (!formValues.address) {
+    requiredFieds["address"] = "Endereco é obrigatório";
+  }
+
+  if (!formValues.supports[0].source && !formValues.supports[0].type) {
+    requiredFieds["supports"] = ["Tipos de apoio é obrigatório"];
+  }
+
+  return Object.keys(requiredFieds).length > 0 ? requiredFieds : undefined;
+};
 
 function Add() {
   const classes = useStyles();
@@ -65,8 +102,9 @@ function Add() {
             mutators={{
               ...arrayMutators,
             }}
-            initialValues={{ name: "", supports: [{ type: "", source: "" }] }}
-            render={({ handleSubmit, form, submitting, pristine, values }) => (
+            validate={validate}
+            initialValues={DEFAULT_ADD_FORM_VALUES}
+            render={({ handleSubmit, form, submitting, pristine, valid }) => (
               <form noValidate autoComplete="off" onSubmit={handleSubmit}>
                 <Field name="name">
                   {(props) => (
@@ -308,7 +346,7 @@ function Add() {
                     variant="contained"
                     color="primary"
                     type="submit"
-                    disabled={submitting || pristine}
+                    disabled={submitting || pristine || !valid}
                     style={{ marginLeft: "1rem" }}
                   >
                     Enviar
