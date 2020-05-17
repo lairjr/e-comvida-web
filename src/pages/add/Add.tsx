@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -7,11 +7,14 @@ import TextField from "@material-ui/core/TextField";
 import { Form, Field } from "react-final-form";
 import Button from "@material-ui/core/Button";
 import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
+import arrayMutators from "final-form-arrays";
+import { FieldArray } from "react-final-form-arrays";
 import CitySelect from "../../components/CitySelect";
 import SectorSelect from "../../components/SectorSelect";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import SupportSelect from "../../components/SupportSelect";
+import { SupportEntity } from "../../redux/entities";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -37,27 +40,11 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface AddFormValues {
   name: string;
+  supports: SupportEntity[];
 }
 
 function Add() {
   const classes = useStyles();
-
-  const onCityChange = (event: any, value: any) => {
-    console.log(value);
-  };
-
-  const onSectorChange = (event: any, value: any) => {
-    console.log(value);
-  };
-
-  const onSupportChange = (
-    event: React.ChangeEvent<{
-      name?: string | undefined;
-      value: unknown;
-    }>
-  ) => {
-    console.log(event);
-  };
 
   const onSubmit = (value: AddFormValues) => {
     console.log("submit", value);
@@ -75,9 +62,12 @@ function Add() {
         <Grid item xs={12} className={classes.text}>
           <Form
             onSubmit={onSubmit}
-            initialValues={{ name: "" }}
+            mutators={{
+              ...arrayMutators,
+            }}
+            initialValues={{ name: "", supports: [{ type: "", source: "" }] }}
             render={({ handleSubmit, form, submitting, pristine, values }) => (
-              <form noValidate autoComplete="off">
+              <form noValidate autoComplete="off" onSubmit={handleSubmit}>
                 <Field name="name">
                   {(props) => (
                     <TextField
@@ -93,37 +83,51 @@ function Add() {
                 </Field>
 
                 <Field name="city">
-                  {(props) => (
-                    <CitySelect
-                      onChange={onCityChange}
-                      renderInput={(params: any) => (
-                        <TextField
-                          {...params}
-                          fullWidth
-                          name={props.input.name}
-                          value={props.input.value}
-                          onChange={props.input.onChange}
-                          label="Cidade"
-                          variant="outlined"
-                          style={{ marginTop: "1rem" }}
-                        />
-                      )}
-                    />
-                  )}
+                  {(props) => {
+                    const onCityChange = (event: any, value: any) => {
+                      props.input.onChange(value);
+                    };
+
+                    return (
+                      <CitySelect
+                        onChange={onCityChange}
+                        renderInput={(params: any) => (
+                          <TextField
+                            {...params}
+                            fullWidth
+                            name={props.input.name}
+                            label="Cidade"
+                            variant="outlined"
+                            style={{ marginTop: "1rem" }}
+                          />
+                        )}
+                      />
+                    );
+                  }}
                 </Field>
 
-                <SectorSelect
-                  onChange={onSectorChange}
-                  renderInput={(params: any) => (
-                    <TextField
-                      {...params}
-                      fullWidth
-                      label="Atividade da empresa"
-                      variant="outlined"
-                      style={{ marginTop: "1rem" }}
-                    />
-                  )}
-                />
+                <Field name="sectors">
+                  {(props) => {
+                    const onSectorChange = (event: any, value: any) => {
+                      props.input.onChange(value);
+                    };
+
+                    return (
+                      <SectorSelect
+                        onChange={onSectorChange}
+                        renderInput={(params: any) => (
+                          <TextField
+                            {...params}
+                            fullWidth
+                            label="Atividade da empresa"
+                            variant="outlined"
+                            style={{ marginTop: "1rem" }}
+                          />
+                        )}
+                      />
+                    );
+                  }}
+                </Field>
 
                 <Field name="address">
                   {(props) => (
@@ -230,8 +234,6 @@ function Add() {
                   )}
                 </Field>
 
-                {JSON.stringify(values)}
-
                 <Typography
                   variant="subtitle1"
                   color="primary"
@@ -241,21 +243,54 @@ function Add() {
                 </Typography>
 
                 <Grid container style={{ paddingTop: "1rem" }} spacing={1}>
-                  <Grid item xs={4}>
-                    <FormControl fullWidth variant="outlined">
-                      <InputLabel id="sector">Tipo de apoio</InputLabel>
+                  <FieldArray name="supports">
+                    {({ fields }) =>
+                      fields.map((name, index) => (
+                        <Fragment key={name}>
+                          <Grid item xs={4}>
+                            <FormControl fullWidth variant="outlined">
+                              <InputLabel id="sector">Tipo de apoio</InputLabel>
 
-                      <SupportSelect onChange={onSupportChange} />
-                    </FormControl>
-                  </Grid>
+                              <Field name={`${name}.type`}>
+                                {(props) => (
+                                  <SupportSelect
+                                    onChange={props.input.onChange}
+                                  />
+                                )}
+                              </Field>
+                            </FormControl>
+                          </Grid>
 
-                  <Grid item xs={8}>
-                    <TextField
-                      label="Fonte"
-                      type="text"
+                          <Grid item xs={8}>
+                            <Field name={`${name}.source`}>
+                              {(props) => (
+                                <TextField
+                                  label="Fonte"
+                                  type="text"
+                                  variant="outlined"
+                                  fullWidth
+                                  name={props.input.name}
+                                  value={props.input.value}
+                                  onChange={props.input.onChange}
+                                />
+                              )}
+                            </Field>
+                          </Grid>
+                        </Fragment>
+                      ))
+                    }
+                  </FieldArray>
+
+                  <Grid item xs={12}>
+                    <Button
                       variant="outlined"
-                      fullWidth
-                    />
+                      color="primary"
+                      onClick={() =>
+                        form.mutators.push("supports", { type: "", source: "" })
+                      }
+                    >
+                      Adicionar apoio
+                    </Button>
                   </Grid>
                 </Grid>
 

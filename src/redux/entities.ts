@@ -5,7 +5,7 @@ export interface CityEntity {
 }
 
 export interface SupportEntity {
-  link: string;
+  source: string;
   type: string;
 }
 

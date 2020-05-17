@@ -11,7 +11,7 @@ interface SupportSelectProps {
 
 function SupportSelect({ onChange }: SupportSelectProps) {
   return (
-    <Select labelId="Support" onChange={onChange} fullWidth label="Setor">
+    <Select onChange={onChange} fullWidth>
       {Object.keys(TYPES_OF_SUPPORT).map((key: string) => (
         <MenuItem key={key} value={key}>
           {TYPES_OF_SUPPORT[key]}
