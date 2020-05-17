@@ -11,8 +11,6 @@ import IconButton from "@material-ui/core/IconButton";
 import WhatsAppIcon from "@material-ui/icons/WhatsApp";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import InstagramIcon from "@material-ui/icons/Instagram";
-import MapIcon from "@material-ui/icons/Map";
-import FastfoodIcon from "@material-ui/icons/Fastfood";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Shimmer from "../../components/Shimmer";
 import Table from "@material-ui/core/Table";
@@ -154,25 +152,37 @@ function Card({ company }: CompanyCardProps) {
       </CardActionArea>
 
       <CardActions disableSpacing>
-        <IconButton aria-label="facebook">
-          <FacebookIcon color="secondary" />
-        </IconButton>
+        {company.facebook && (
+          <a href={company.facebook} target="_blank" rel="noopener noreferrer">
+            <IconButton aria-label="facebook">
+              <FacebookIcon color="secondary" />
+            </IconButton>
+          </a>
+        )}
 
-        <IconButton aria-label="whatsapp">
-          <WhatsAppIcon color="secondary" />
-        </IconButton>
+        {company.instagram && (
+          <a href={company.instagram} target="_blank" rel="noopener noreferrer">
+            <IconButton aria-label="instagram">
+              <InstagramIcon color="secondary" />
+            </IconButton>
+          </a>
+        )}
 
-        <IconButton aria-label="instagram">
-          <InstagramIcon color="secondary" />
-        </IconButton>
+        {company.whatsapp && (
+          <a href={company.whatsapp} target="_blank" rel="noopener noreferrer">
+            <IconButton aria-label="whatsapp">
+              <WhatsAppIcon color="secondary" />
+            </IconButton>
+          </a>
+        )}
 
-        <IconButton aria-label="fastfood">
-          <FastfoodIcon color="secondary" />
-        </IconButton>
-
-        <IconButton aria-label="map">
-          <MapIcon color="secondary" />
-        </IconButton>
+        {company.siteUrl && (
+          <a href={company.siteUrl} target="_blank" rel="noopener noreferrer">
+            <IconButton aria-label="siteUrl">
+              <OpenInNewIcon color="secondary" />
+            </IconButton>
+          </a>
+        )}
 
         <Fab
           className={clsx(classes.expand, {

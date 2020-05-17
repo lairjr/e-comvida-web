@@ -14,6 +14,10 @@ export interface CompanyEntity {
   address: string;
   city: number;
   description: string;
+  facebook: string;
+  instagram: string;
+  whatsapp: string;
+  siteUrl: string;
   geopoint: GeoPoint;
   name: string;
   phone: string;
