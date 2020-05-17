@@ -39,11 +39,9 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: "center",
     },
     subtitle: {
-      borderLeft: "1px solid",
       fontFamily: theme.typography.fontFamily,
       fontSize: "1rem",
-      marginLeft: "1rem",
-      padding: "0.25rem 0 0.25rem 1rem",
+      padding: ".25rem 0 .5rem .5rem",
       color: theme.palette.secondary.main,
     },
   })
@@ -108,7 +106,7 @@ function NavBar() {
         </Link>
 
         <Hidden smDown>
-          <span className={classes.subtitle}>que retomamos a economia</span>
+          <span className={classes.subtitle}>retomando a economia</span>
 
           <Grid container justify="flex-end" alignItems="center">
             <Link to="/add">
