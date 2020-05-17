@@ -3,6 +3,8 @@ import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
+
+import { Form, Field } from "react-final-form";
 import Button from "@material-ui/core/Button";
 import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 import CitySelect from "../../components/CitySelect";
@@ -33,6 +35,10 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+interface AddFormValues {
+  name: string;
+}
+
 function Add() {
   const classes = useStyles();
 
@@ -53,6 +59,10 @@ function Add() {
     console.log(event);
   };
 
+  const onSubmit = (value: AddFormValues) => {
+    console.log("submit", value);
+  };
+
   return (
     <Container>
       <Grid container spacing={4} alignItems="center" direction="column">
@@ -63,137 +73,215 @@ function Add() {
         </Grid>
 
         <Grid item xs={12} className={classes.text}>
-          <form noValidate autoComplete="off">
-            <TextField
-              label="Nome da empresa"
-              type="text"
-              variant="outlined"
-              fullWidth
-            />
+          <Form
+            onSubmit={onSubmit}
+            initialValues={{ name: "" }}
+            render={({ handleSubmit, form, submitting, pristine, values }) => (
+              <form noValidate autoComplete="off">
+                <Field name="name">
+                  {(props) => (
+                    <TextField
+                      label="Nome da empresa"
+                      type="text"
+                      variant="outlined"
+                      fullWidth
+                      name={props.input.name}
+                      value={props.input.value}
+                      onChange={props.input.onChange}
+                    />
+                  )}
+                </Field>
 
-            <CitySelect
-              onChange={onCityChange}
-              renderInput={(params: any) => (
-                <TextField
-                  {...params}
-                  fullWidth
-                  label="Cidade"
-                  variant="outlined"
-                  style={{ marginTop: "1rem" }}
+                <Field name="city">
+                  {(props) => (
+                    <CitySelect
+                      onChange={onCityChange}
+                      renderInput={(params: any) => (
+                        <TextField
+                          {...params}
+                          fullWidth
+                          name={props.input.name}
+                          value={props.input.value}
+                          onChange={props.input.onChange}
+                          label="Cidade"
+                          variant="outlined"
+                          style={{ marginTop: "1rem" }}
+                        />
+                      )}
+                    />
+                  )}
+                </Field>
+
+                <SectorSelect
+                  onChange={onSectorChange}
+                  renderInput={(params: any) => (
+                    <TextField
+                      {...params}
+                      fullWidth
+                      label="Atividade da empresa"
+                      variant="outlined"
+                      style={{ marginTop: "1rem" }}
+                    />
+                  )}
                 />
-              )}
-            />
 
-            <SectorSelect
-              onChange={onSectorChange}
-              renderInput={(params: any) => (
-                <TextField
-                  {...params}
-                  fullWidth
-                  label="Atividade da empresa"
-                  variant="outlined"
-                  style={{ marginTop: "1rem" }}
-                />
-              )}
-            />
+                <Field name="address">
+                  {(props) => (
+                    <TextField
+                      label="Endereco"
+                      type="text"
+                      variant="outlined"
+                      fullWidth
+                      style={{ marginTop: "1rem" }}
+                      name={props.input.name}
+                      value={props.input.value}
+                      onChange={props.input.onChange}
+                    />
+                  )}
+                </Field>
 
-            <TextField
-              label="Endereco"
-              type="text"
-              variant="outlined"
-              fullWidth
-              style={{ marginTop: "1rem" }}
-            />
+                <Field name="description">
+                  {(props) => (
+                    <TextField
+                      label="Descricao"
+                      type="text"
+                      variant="outlined"
+                      fullWidth
+                      style={{ marginTop: "1rem" }}
+                      name={props.input.name}
+                      value={props.input.value}
+                      onChange={props.input.onChange}
+                    />
+                  )}
+                </Field>
 
-            <TextField
-              label="Descricao"
-              type="text"
-              variant="outlined"
-              fullWidth
-              style={{ marginTop: "1rem" }}
-            />
+                <Field name="phone">
+                  {(props) => (
+                    <TextField
+                      label="Telefone"
+                      type="text"
+                      variant="outlined"
+                      fullWidth
+                      style={{ marginTop: "1rem" }}
+                      name={props.input.name}
+                      value={props.input.value}
+                      onChange={props.input.onChange}
+                    />
+                  )}
+                </Field>
 
-            <TextField
-              label="Telefone"
-              type="text"
-              variant="outlined"
-              fullWidth
-              style={{ marginTop: "1rem" }}
-            />
+                <Field name="whatsapp">
+                  {(props) => (
+                    <TextField
+                      label="Whatsapp"
+                      type="text"
+                      variant="outlined"
+                      fullWidth
+                      style={{ marginTop: "1rem" }}
+                      name={props.input.name}
+                      value={props.input.value}
+                      onChange={props.input.onChange}
+                    />
+                  )}
+                </Field>
 
-            <TextField
-              label="Whatsapp"
-              type="text"
-              variant="outlined"
-              fullWidth
-              style={{ marginTop: "1rem" }}
-            />
+                <Field name="facebook">
+                  {(props) => (
+                    <TextField
+                      label="Facebook URL"
+                      type="text"
+                      variant="outlined"
+                      fullWidth
+                      style={{ marginTop: "1rem" }}
+                      name={props.input.name}
+                      value={props.input.value}
+                      onChange={props.input.onChange}
+                    />
+                  )}
+                </Field>
 
-            <TextField
-              label="Facebook URL"
-              type="text"
-              variant="outlined"
-              fullWidth
-              style={{ marginTop: "1rem" }}
-            />
+                <Field name="instagram">
+                  {(props) => (
+                    <TextField
+                      label="Instagram URL"
+                      type="text"
+                      variant="outlined"
+                      fullWidth
+                      style={{ marginTop: "1rem" }}
+                      name={props.input.name}
+                      value={props.input.value}
+                      onChange={props.input.onChange}
+                    />
+                  )}
+                </Field>
 
-            <TextField
-              label="Instagram URL"
-              type="text"
-              variant="outlined"
-              fullWidth
-              style={{ marginTop: "1rem" }}
-            />
+                <Field name="site">
+                  {(props) => (
+                    <TextField
+                      label="Site URL"
+                      type="text"
+                      variant="outlined"
+                      fullWidth
+                      style={{ marginTop: "1rem" }}
+                      name={props.input.name}
+                      value={props.input.value}
+                      onChange={props.input.onChange}
+                    />
+                  )}
+                </Field>
 
-            <TextField
-              label="Site URL"
-              type="text"
-              variant="outlined"
-              fullWidth
-              style={{ marginTop: "1rem" }}
-            />
+                {JSON.stringify(values)}
 
-            <Typography
-              variant="subtitle1"
-              color="primary"
-              style={{ marginTop: "1rem", textAlign: "left" }}
-            >
-              Contribuicões
-            </Typography>
+                <Typography
+                  variant="subtitle1"
+                  color="primary"
+                  style={{ marginTop: "1rem", textAlign: "left" }}
+                >
+                  Contribuicões
+                </Typography>
 
-            <Grid container style={{ paddingTop: "1rem" }} spacing={1}>
-              <Grid item xs={4}>
-                <FormControl fullWidth variant="outlined">
-                  <InputLabel id="sector">Tipo de apoio</InputLabel>
+                <Grid container style={{ paddingTop: "1rem" }} spacing={1}>
+                  <Grid item xs={4}>
+                    <FormControl fullWidth variant="outlined">
+                      <InputLabel id="sector">Tipo de apoio</InputLabel>
 
-                  <SupportSelect onChange={onSupportChange} />
-                </FormControl>
-              </Grid>
+                      <SupportSelect onChange={onSupportChange} />
+                    </FormControl>
+                  </Grid>
 
-              <Grid item xs={8}>
-                <TextField
-                  label="Fonte"
-                  type="text"
-                  variant="outlined"
-                  fullWidth
-                />
-              </Grid>
-            </Grid>
+                  <Grid item xs={8}>
+                    <TextField
+                      label="Fonte"
+                      type="text"
+                      variant="outlined"
+                      fullWidth
+                    />
+                  </Grid>
+                </Grid>
 
-            <Grid item xs={12} style={{ paddingTop: "1rem" }}>
-              <Button variant="contained" color="secondary">
-                Cancelar
-              </Button>
+                <Grid item xs={12} style={{ paddingTop: "1rem" }}>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    onClick={form.reset}
+                    disabled={submitting || pristine}
+                  >
+                    Cancelar
+                  </Button>
 
-              <Button
-                variant="contained"
-                color="primary"
-                style={{ marginLeft: "1rem" }}
-              >
-                Enviar
-              </Button>
-            </Grid>
-          </form>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    type="submit"
+                    disabled={submitting || pristine}
+                    style={{ marginLeft: "1rem" }}
+                  >
+                    Enviar
+                  </Button>
+                </Grid>
+              </form>
+            )}
+          />
         </Grid>
       </Grid>
     </Container>

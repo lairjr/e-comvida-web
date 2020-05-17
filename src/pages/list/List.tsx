@@ -15,7 +15,6 @@ import useQueryParam from "../../helpers/useQueryParam";
 import createStyles from "@material-ui/core/styles/createStyles";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import { Theme } from "@material-ui/core/styles/createMuiTheme";
-import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import Card, { LoadingCard } from "./Card";
 import { CompanyEntity, GroupActivityEntity } from "../../redux/entities";
