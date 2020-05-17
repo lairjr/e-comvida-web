@@ -225,9 +225,15 @@ function Card({ company }: CompanyCardProps) {
                   </TableCell>
 
                   <TableCell align="right">
-                    <IconButton aria-label="map">
-                      <OpenInNewIcon color="secondary" />
-                    </IconButton>
+                    <a
+                      href={support.source}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <IconButton aria-label="fonter">
+                        <OpenInNewIcon color="secondary" />
+                      </IconButton>
+                    </a>
                   </TableCell>
                 </TableRow>
               );
