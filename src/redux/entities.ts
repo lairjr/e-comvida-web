@@ -12,11 +12,13 @@ export interface SupportEntity {
 export interface CompanyEntity {
   id: string;
   address: string;
+  city: number;
   description: string;
   geopoint: GeoPoint;
   name: string;
   phone: string;
   supports: SupportEntity[];
+  sectors: string[];
 }
 
 export interface GeoPoint {

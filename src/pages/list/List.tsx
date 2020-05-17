@@ -7,30 +7,23 @@ import TextField from "@material-ui/core/TextField";
 import Search from "@material-ui/icons/Search";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import "./List.css";
+
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
-import {
-  useFirestoreConnect,
-  ReduxFirestoreQuerySetting,
-} from "react-redux-firebase";
+import { useFirestoreConnect, WhereOptions } from "react-redux-firebase";
 import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
-// import { usePosition } from "../../helpers/usePosition";
-// import firebase from "firebase";
 import useQueryParam from "../../helpers/useQueryParam";
 import createStyles from "@material-ui/core/styles/createStyles";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import { Theme } from "@material-ui/core/styles/createMuiTheme";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import Card, { LoadingCard } from "./Card";
-import { TYPES_OF_COMPANY } from "../../redux/constans";
 import { CompanyEntity } from "../../redux/entities";
 import { Hidden } from "@material-ui/core";
 import CitySelect from "../../components/CitySelect";
 import SectorSelect from "../../components/SectorSelect";
+import { companiesByName } from "../../redux/selectors";
 
 function LoadingList() {
   return (
@@ -64,6 +57,24 @@ const useStylesList = makeStyles((theme: Theme) =>
   })
 );
 
+const mapCitySearch = (cityValue: string | null): WhereOptions | null =>
+  cityValue ? ["city", "==", cityValue.toLocaleLowerCase()] : null;
+
+const mapSectorSearch = (sectorValue: string | null): WhereOptions | null =>
+  sectorValue
+    ? ["sectors", "array-contains", sectorValue.toLocaleLowerCase()]
+    : null;
+
+const aggregateQueries = (
+  queries: WhereOptions[],
+  query: WhereOptions | null
+) => {
+  if (query) {
+    return [...queries, query];
+  }
+  return queries;
+};
+
 function List() {
   const classes = useStylesList();
 
@@ -89,53 +100,20 @@ function List() {
   const onSectorChange = (
     event: React.ChangeEvent<{ name?: string; value: unknown }>
   ) => {
-    console.log(event.target);
     onSectorFilterValueChange(event.target.value as string);
   };
 
-  // const { latitude, longitude } = usePosition();
+  const where = [
+    mapSectorSearch(sectorFilterValue),
+    mapCitySearch(cityFilterValue),
+  ].reduce(aggregateQueries, []);
 
-  // const lat = 0.0144927536231884;
-  // const lon = 0.0181818181818182;
+  useFirestoreConnect({
+    collection: "companies",
+    where: where.length > 0 ? where : undefined,
+  });
 
-  // const lowerLat = latitude - lat * MILES;
-  // const lowerLon = longitude - lon * MILES;
-
-  // const greaterLat = latitude + lat * MILES;
-  // const greaterLon = longitude + lon * MILES;
-
-  // const lesserGeopoint = new firebase.firestore.GeoPoint(lowerLat, lowerLon);
-  // const greaterGeopoint = new firebase.firestore.GeoPoint(
-  //   greaterLat,
-  //   greaterLon
-  // );
-
-  const baseConn = [
-    {
-      collection: "companies",
-      // where: [
-      //   ["geopoint", ">=", lesserGeopoint],
-      //   ["geopoint", "<=", greaterGeopoint],
-      // ],
-    },
-  ] as ReduxFirestoreQuerySetting[];
-  const firestoneConn = nameFilterValue
-    ? ([
-        ...baseConn,
-        {
-          collection: "companies",
-          where: [
-            ["search", "array-contains", nameFilterValue.toLocaleLowerCase()],
-          ],
-        },
-      ] as ReduxFirestoreQuerySetting[])
-    : baseConn;
-
-  useFirestoreConnect(firestoneConn);
-
-  const companies = useSelector(
-    (state: RootState) => state.firestore.ordered.companies
-  );
+  const companies = useSelector(companiesByName(nameFilterValue));
 
   return (
     <Container>

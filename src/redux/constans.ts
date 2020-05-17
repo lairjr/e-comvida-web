@@ -3,8 +3,9 @@ export const MILES = 50;
 export const TYPES_OF_COMPANY = {
   furniture: "Móveis",
   clothing: "Roupas",
+  industry: "Indústria",
   it: "Tecnologia a Informacao",
-  restaurant: "Restaurantes",
+  restaurant: "Bar e Restaurantes",
   market: "Supermercados",
   transport: "Transportes",
   turism: "Turismo",
