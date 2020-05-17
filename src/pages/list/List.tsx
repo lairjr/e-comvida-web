@@ -18,7 +18,7 @@ import { Theme } from "@material-ui/core/styles/createMuiTheme";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import Card, { LoadingCard } from "./Card";
-import { CompanyEntity } from "../../redux/entities";
+import { CompanyEntity, GroupActivityEntity } from "../../redux/entities";
 import { Hidden } from "@material-ui/core";
 import CitySelect from "../../components/CitySelect";
 import SectorSelect from "../../components/SectorSelect";
@@ -61,7 +61,7 @@ const mapCitySearch = (cityValue: string | null): WhereOptions | null =>
 
 const mapSectorSearch = (sectorValue: string | null): WhereOptions | null =>
   sectorValue
-    ? ["sectors", "array-contains", sectorValue.toLocaleLowerCase()]
+    ? ["sectors", "array-contains-any", sectorValue.split("|")]
     : null;
 
 const aggregateQueries = (
@@ -96,10 +96,15 @@ function List() {
     filterValue: sectorFilterValue,
     onFilterValueChange: onSectorFilterValueChange,
   } = useQueryParam("sector");
-  const onSectorChange = (
-    event: React.ChangeEvent<{ name?: string; value: unknown }>
-  ) => {
-    onSectorFilterValueChange(event.target.value as string);
+  const onSectorChange = (event: any, value: any) => {
+    if (value) {
+      const filterValue = value
+        .map((groupActivity: GroupActivityEntity) => groupActivity.id)
+        .join("|");
+      onSectorFilterValueChange(`${filterValue}`);
+    } else {
+      onSectorFilterValueChange("");
+    }
   };
 
   const where = [
@@ -153,17 +158,24 @@ function List() {
                 Filtrar por:
               </Typography>
 
-              <FormControl variant="outlined" className={classes.control}>
-                <InputLabel id="sector">Setor</InputLabel>
-
-                <SectorSelect onChange={onSectorChange} />
-              </FormControl>
-
               <FormControl className={classes.control}>
                 <CitySelect
                   onChange={onCityChange}
                   renderInput={(params: any) => (
                     <TextField {...params} label="Cidade" variant="outlined" />
+                  )}
+                />
+              </FormControl>
+
+              <FormControl style={{ marginLeft: "1rem" }}>
+                <SectorSelect
+                  onChange={onSectorChange}
+                  renderInput={(params: any) => (
+                    <TextField
+                      {...params}
+                      label="Atividade da empresa"
+                      variant="outlined"
+                    />
                   )}
                 />
               </FormControl>
@@ -183,18 +195,25 @@ function List() {
                 <Grid container>
                   <Grid item xs={12}>
                     <FormControl fullWidth>
-                      <InputLabel id="sector">Setor</InputLabel>
-
-                      <SectorSelect onChange={onSectorChange} />
+                      <CitySelect
+                        onChange={onCityChange}
+                        renderInput={(params: any) => (
+                          <TextField {...params} label="Cidade" fullWidth />
+                        )}
+                      />
                     </FormControl>
                   </Grid>
 
                   <Grid item xs={12}>
                     <FormControl fullWidth>
-                      <CitySelect
-                        onChange={onCityChange}
+                      <SectorSelect
+                        onChange={onSectorChange}
                         renderInput={(params: any) => (
-                          <TextField {...params} label="Cidade" fullWidth />
+                          <TextField
+                            {...params}
+                            label="Atividade da empresa"
+                            fullWidth
+                          />
                         )}
                       />
                     </FormControl>

@@ -21,6 +21,11 @@ export interface CompanyEntity {
   sectors: string[];
 }
 
+export interface GroupActivityEntity {
+  name: string;
+  id: string;
+}
+
 export interface GeoPoint {
   Pc: number;
   Vc: number;

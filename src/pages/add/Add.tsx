@@ -40,13 +40,8 @@ function Add() {
     console.log(value);
   };
 
-  const onSectorChange = (
-    event: React.ChangeEvent<{
-      name?: string | undefined;
-      value: unknown;
-    }>
-  ) => {
-    console.log(event);
+  const onSectorChange = (event: any, value: any) => {
+    console.log(value);
   };
 
   const onSupportChange = (
@@ -89,15 +84,18 @@ function Add() {
               )}
             />
 
-            <FormControl
-              fullWidth
-              style={{ marginTop: "1rem" }}
-              variant="outlined"
-            >
-              <InputLabel id="sector">Setor</InputLabel>
-
-              <SectorSelect onChange={onSectorChange} />
-            </FormControl>
+            <SectorSelect
+              onChange={onSectorChange}
+              renderInput={(params: any) => (
+                <TextField
+                  {...params}
+                  fullWidth
+                  label="Atividade da empresa"
+                  variant="outlined"
+                  style={{ marginTop: "1rem" }}
+                />
+              )}
+            />
 
             <TextField
               label="Endereco"
@@ -124,6 +122,14 @@ function Add() {
             />
 
             <TextField
+              label="Whatsapp"
+              type="text"
+              variant="outlined"
+              fullWidth
+              style={{ marginTop: "1rem" }}
+            />
+
+            <TextField
               label="Facebook URL"
               type="text"
               variant="outlined"
@@ -140,7 +146,7 @@ function Add() {
             />
 
             <TextField
-              label="Whatsapp"
+              label="Site URL"
               type="text"
               variant="outlined"
               fullWidth
