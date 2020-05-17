@@ -2,7 +2,6 @@ import React, { Fragment } from "react";
 
 import { default as MaterialCard } from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import Autocomplete from "@material-ui/lab/Autocomplete";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Search from "@material-ui/icons/Search";
@@ -27,9 +26,10 @@ import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import Card, { LoadingCard } from "./Card";
-import { TYPES_OF_COMPANY, CITIES } from "../../redux/constans";
-import { CityEntity, CompanyEntity } from "../../redux/entities";
+import { TYPES_OF_COMPANY } from "../../redux/constans";
+import { CompanyEntity } from "../../redux/entities";
 import { Hidden } from "@material-ui/core";
+import CitySelect from "../../components/CitySelect";
 
 function LoadingList() {
   return (
@@ -66,9 +66,20 @@ const useStylesList = makeStyles((theme: Theme) =>
 function List() {
   const classes = useStylesList();
 
-  const { filterValue, onFilterValueChange } = useQueryParam("queryTerm");
-  const onChangeSearchTerm = (event: React.ChangeEvent<HTMLInputElement>) =>
-    onFilterValueChange(event.target.value);
+  const {
+    filterValue: nameFilterValue,
+    onFilterValueChange: onNameFilterValueChange,
+  } = useQueryParam("name");
+  const onChangeName = (event: React.ChangeEvent<HTMLInputElement>) =>
+    onNameFilterValueChange(event.target.value);
+
+  const {
+    filterValue: cityFilterValue,
+    onFilterValueChange: onCityFilterValueChange,
+  } = useQueryParam("city");
+  const onCityChange = (event: any, value: any) => {
+    onCityFilterValueChange(value ? value.id : "");
+  };
 
   // const { latitude, longitude } = usePosition();
 
@@ -96,13 +107,13 @@ function List() {
       // ],
     },
   ] as ReduxFirestoreQuerySetting[];
-  const firestoneConn = filterValue
+  const firestoneConn = nameFilterValue
     ? ([
         ...baseConn,
         {
           collection: "companies",
           where: [
-            ["search", "array-contains", filterValue.toLocaleLowerCase()],
+            ["search", "array-contains", nameFilterValue.toLocaleLowerCase()],
           ],
         },
       ] as ReduxFirestoreQuerySetting[])
@@ -161,11 +172,8 @@ function List() {
               </FormControl>
 
               <FormControl className={classes.control}>
-                <Autocomplete
-                  options={CITIES}
-                  getOptionLabel={(city: CityEntity) =>
-                    `${city.name} - ${city.state}`
-                  }
+                <CitySelect
+                  onChange={onCityChange}
                   renderInput={(params: any) => (
                     <TextField {...params} label="Cidade" variant="outlined" />
                   )}
@@ -211,11 +219,8 @@ function List() {
 
                   <Grid item xs={12}>
                     <FormControl fullWidth>
-                      <Autocomplete
-                        options={CITIES}
-                        getOptionLabel={(city: CityEntity) =>
-                          `${city.name} - ${city.state}`
-                        }
+                      <CitySelect
+                        onChange={onCityChange}
                         renderInput={(params: any) => (
                           <TextField {...params} label="Cidade" fullWidth />
                         )}
@@ -239,8 +244,8 @@ function List() {
               ),
             }}
             fullWidth
-            value={filterValue || ""}
-            onChange={onChangeSearchTerm}
+            value={nameFilterValue || ""}
+            onChange={onChangeName}
           />
         </Grid>
       </Grid>

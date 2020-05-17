@@ -76,17 +76,17 @@ function NavBar() {
             PaperProps={{ className: classes.drawer }}
           >
             <List className={classes.list}>
-              <ListItem button key="list">
-                <Link to="/list">
-                  <span className={classes.listItem}>Empresas</span>
+              <ListItem button key="map">
+                <Link to="/add">
+                  <span className={classes.listItem}>Anuncie aqui</span>
                 </Link>
               </ListItem>
 
               <Divider />
 
-              <ListItem button key="map">
-                <Link to="/add">
-                  <span className={classes.listItem}>Map</span>
+              <ListItem button key="list">
+                <Link to="/list">
+                  <span className={classes.listItem}>Empresas</span>
                 </Link>
               </ListItem>
 

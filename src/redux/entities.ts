@@ -1,6 +1,7 @@
 export interface CityEntity {
   name: string;
   state: string;
+  id: string;
 }
 
 export interface SupportEntity {

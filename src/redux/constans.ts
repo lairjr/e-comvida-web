@@ -1,5 +1,3 @@
-import { CityEntity } from "./entities";
-
 export const MILES = 50;
 
 export const TYPES_OF_COMPANY = {
@@ -12,10 +10,6 @@ export const TYPES_OF_COMPANY = {
   turism: "Turismo",
   health: "Saúde",
 } as { [key: string]: string };
-
-export const CITIES: CityEntity[] = [
-  { name: "Santa Cruz do Sul", state: "RS" },
-];
 
 export const SUPPORT_TEXT = new Map<string, string>([
   ["publicNote", "Nota pública"],

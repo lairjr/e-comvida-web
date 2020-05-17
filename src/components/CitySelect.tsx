@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { CityEntity } from "../redux/entities";
-import Autocomplete from "@material-ui/lab/Autocomplete";
-import TextField from "@material-ui/core/TextField";
+import Autocomplete, { RenderInputParams } from "@material-ui/lab/Autocomplete";
 
 const mapCityApiToCityEntity = (cityApi: any): CityEntity => {
   const name = cityApi.nome || "";
@@ -11,7 +10,12 @@ const mapCityApiToCityEntity = (cityApi: any): CityEntity => {
   return { name, state, id };
 };
 
-function CitySelect() {
+interface CitySelectProps {
+  onChange: (event: React.ChangeEvent<{}>, value: any) => void;
+  renderInput: (params: RenderInputParams) => React.ReactNode;
+}
+
+function CitySelect({ onChange, renderInput }: CitySelectProps) {
   const [citiesOptions, setCitiesOptions] = useState<CityEntity[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -34,6 +38,8 @@ function CitySelect() {
       loading={isLoading}
       noOptionsText="Nome da cidade - UF"
       options={citiesOptions}
+      autoHighlight
+      onChange={onChange}
       filterOptions={(options, state) => {
         if (state.inputValue.length >= 3) {
           return options.filter((cityApi: any) => {
@@ -51,9 +57,7 @@ function CitySelect() {
 
         return `${city.name} - ${city.state}`;
       }}
-      renderInput={(params: any) => (
-        <TextField {...params} label="Cidade" fullWidth />
-      )}
+      renderInput={renderInput}
     />
   );
 }
