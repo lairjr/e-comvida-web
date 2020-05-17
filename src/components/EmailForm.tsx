@@ -15,7 +15,7 @@ const EmailForm: React.FC = () => {
     try {
       const result = await emailjs.sendForm(
         process.env.REACT_APP_EMAILJS_SERVICE_ID as string,
-        process.env.REACT_APP_EMAILJS_TEMPLATE_ID as string,
+        process.env.REACT_APP_EMAILJS_FEEDBACK_TEMPLATE_ID as string,
         event.target as HTMLFormElement,
         process.env.REACT_APP_EMAILJS_USER_ID
       );

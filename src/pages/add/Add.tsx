@@ -1,10 +1,11 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
-
+import emailjs from "emailjs-com";
+import Snackbar from "@material-ui/core/Snackbar";
 import { Form, Field } from "react-final-form";
 import Button from "@material-ui/core/Button";
 import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
@@ -90,8 +91,26 @@ const validate = (formValues: AddFormValues) => {
 function Add() {
   const classes = useStyles();
 
-  const onSubmit = (value: AddFormValues) => {
-    console.log("submit", value);
+  const [openSuccess, setOpenSuccess] = useState(false);
+  const [openFailure, setOpenFailure] = useState(false);
+
+  const onSubmit = async (value: AddFormValues) => {
+    try {
+      const result = await emailjs.send(
+        process.env.REACT_APP_EMAILJS_SERVICE_ID as string,
+        process.env.REACT_APP_EMAILJS_ADD_ID as string,
+        { data: JSON.stringify(value) },
+        process.env.REACT_APP_EMAILJS_USER_ID
+      );
+
+      if (result.status === 200) {
+        setOpenSuccess(true);
+      } else {
+        setOpenFailure(true);
+      }
+    } catch {
+      setOpenFailure(true);
+    }
   };
 
   return (
@@ -380,6 +399,22 @@ function Add() {
           />
         </Grid>
       </Grid>
+
+      <Snackbar
+        open={openSuccess}
+        autoHideDuration={6000}
+        onClose={() => setOpenSuccess(false)}
+        color="primary"
+        message="Valeu! Estamos processando seu cadastro"
+      />
+
+      <Snackbar
+        open={openFailure}
+        autoHideDuration={6000}
+        onClose={() => setOpenFailure(false)}
+        color="secondary"
+        message="Ops! Algum problema ocorreu"
+      />
     </Container>
   );
 }
