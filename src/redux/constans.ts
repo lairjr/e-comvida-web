@@ -16,3 +16,9 @@ export const SUPPORT_TEXT = new Map<string, string>([
   ["publicNote", "Nota pública"],
   ["donation", "Doacão"],
 ]);
+
+export const TYPES_OF_SUPPORT: { [key: string]: string } = {
+  donation: "Doacão",
+  publicNote: "Nota pública",
+  voluntaryIsolation: "Isolamento voluntário",
+};

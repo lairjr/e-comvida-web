@@ -6,6 +6,10 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 import CitySelect from "../../components/CitySelect";
+import SectorSelect from "../../components/SectorSelect";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import SupportSelect from "../../components/SupportSelect";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -34,6 +38,24 @@ function Add() {
 
   const onCityChange = (event: any, value: any) => {
     console.log(value);
+  };
+
+  const onSectorChange = (
+    event: React.ChangeEvent<{
+      name?: string | undefined;
+      value: unknown;
+    }>
+  ) => {
+    console.log(event);
+  };
+
+  const onSupportChange = (
+    event: React.ChangeEvent<{
+      name?: string | undefined;
+      value: unknown;
+    }>
+  ) => {
+    console.log(event);
   };
 
   return (
@@ -67,6 +89,16 @@ function Add() {
               )}
             />
 
+            <FormControl
+              fullWidth
+              style={{ marginTop: "1rem" }}
+              variant="outlined"
+            >
+              <InputLabel id="sector">Setor</InputLabel>
+
+              <SectorSelect onChange={onSectorChange} />
+            </FormControl>
+
             <TextField
               label="Endereco"
               type="text"
@@ -82,6 +114,65 @@ function Add() {
               fullWidth
               style={{ marginTop: "1rem" }}
             />
+
+            <TextField
+              label="Telefone"
+              type="text"
+              variant="outlined"
+              fullWidth
+              style={{ marginTop: "1rem" }}
+            />
+
+            <TextField
+              label="Facebook URL"
+              type="text"
+              variant="outlined"
+              fullWidth
+              style={{ marginTop: "1rem" }}
+            />
+
+            <TextField
+              label="Instagram URL"
+              type="text"
+              variant="outlined"
+              fullWidth
+              style={{ marginTop: "1rem" }}
+            />
+
+            <TextField
+              label="Whatsapp"
+              type="text"
+              variant="outlined"
+              fullWidth
+              style={{ marginTop: "1rem" }}
+            />
+
+            <Typography
+              variant="subtitle1"
+              color="primary"
+              style={{ marginTop: "1rem", textAlign: "left" }}
+            >
+              Contribuicões
+            </Typography>
+
+            <Grid container style={{ paddingTop: "1rem" }} spacing={1}>
+              <Grid item xs={4}>
+                <FormControl fullWidth variant="outlined">
+                  <InputLabel id="sector">Tipo de apoio</InputLabel>
+
+                  <SupportSelect onChange={onSupportChange} />
+                </FormControl>
+              </Grid>
+
+              <Grid item xs={8}>
+                <TextField
+                  label="Fonte"
+                  type="text"
+                  variant="outlined"
+                  fullWidth
+                />
+              </Grid>
+            </Grid>
 
             <Grid item xs={12} style={{ paddingTop: "1rem" }}>
               <Button variant="contained" color="secondary">

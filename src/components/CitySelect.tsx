@@ -40,6 +40,7 @@ function CitySelect({ onChange, renderInput }: CitySelectProps) {
       options={citiesOptions}
       autoHighlight
       onChange={onChange}
+      fullWidth
       filterOptions={(options, state) => {
         if (state.inputValue.length >= 3) {
           return options.filter((cityApi: any) => {
