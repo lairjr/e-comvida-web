@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -44,6 +45,7 @@ interface AddFormValues {
   sectors: { [key: string]: any }[] | undefined;
   address: string;
   supports: SupportEntity[];
+  recaptcha: string;
 }
 
 const DEFAULT_ADD_FORM_VALUES: AddFormValues = {
@@ -52,6 +54,7 @@ const DEFAULT_ADD_FORM_VALUES: AddFormValues = {
   sectors: undefined,
   address: "",
   supports: [{ type: "", source: "" }],
+  recaptcha: "",
 };
 
 const validate = (formValues: AddFormValues) => {
@@ -75,6 +78,10 @@ const validate = (formValues: AddFormValues) => {
 
   if (!formValues.supports[0].source && !formValues.supports[0].type) {
     requiredFieds["supports"] = ["Tipos de apoio é obrigatório"];
+  }
+
+  if (!formValues.recaptcha) {
+    requiredFieds["recaptcha"] = ["ReCaptcha é obrigatório"];
   }
 
   return Object.keys(requiredFieds).length > 0 ? requiredFieds : undefined;
@@ -327,9 +334,25 @@ function Add() {
                         form.mutators.push("supports", { type: "", source: "" })
                       }
                     >
-                      Adicionar apoio
+                      Adicionar contribuicão
                     </Button>
                   </Grid>
+                </Grid>
+
+                <Grid item xs={12} style={{ paddingTop: "1rem" }}>
+                  {/* ReCAPTCHA width */}
+                  <div style={{ width: "304px", margin: "auto" }}>
+                    <Field name="recaptcha">
+                      {(props) => (
+                        <ReCAPTCHA
+                          sitekey={
+                            process.env.REACT_APP_RECAPTCHA_SITE_KEY || ""
+                          }
+                          onChange={props.input.onChange}
+                        />
+                      )}
+                    </Field>
+                  </div>
                 </Grid>
 
                 <Grid item xs={12} style={{ paddingTop: "1rem" }}>
