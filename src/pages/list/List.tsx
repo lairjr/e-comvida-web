@@ -24,6 +24,7 @@ import CitySelect from "../../components/CitySelect";
 import SectorSelect from "../../components/SectorSelect";
 import { companiesByName } from "../../redux/selectors";
 import AdminWrapper from "../../components/AdminWrapper";
+import { Link } from "react-router-dom";
 
 function LoadingList() {
   return (
@@ -127,15 +128,17 @@ function List() {
         <Grid item xs={12}>
           <Grid container style={{ position: "relative" }}>
             <AdminWrapper>
-              <Fab
-                aria-label="Adicionar empresa"
-                variant="extended"
-                color="secondary"
-                style={{ position: "absolute", right: 0, top: ".5rem" }}
-              >
-                <AddIcon />
-                Adicionar
-              </Fab>
+              <Link to="/admin/add">
+                <Fab
+                  aria-label="Adicionar empresa"
+                  variant="extended"
+                  color="secondary"
+                  style={{ position: "absolute", right: 0, top: ".5rem" }}
+                >
+                  <AddIcon />
+                  Adicionar
+                </Fab>
+              </Link>
             </AdminWrapper>
 
             <Grid item xs={12} sm={8}>

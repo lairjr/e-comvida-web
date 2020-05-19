@@ -12,6 +12,7 @@ import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import logo from "../assets/logo.png";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import AdminWrapper from "./AdminWrapper";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -95,6 +96,16 @@ function NavBar() {
                   <span className={classes.listItem}>Sobre</span>
                 </Link>
               </ListItem>
+
+              <AdminWrapper>
+                <Divider />
+
+                <ListItem button key="adminAdd">
+                  <Link to="/admin/add">
+                    <span className={classes.listItem}>Adicionar empresa</span>
+                  </Link>
+                </ListItem>
+              </AdminWrapper>
             </List>
           </Drawer>
         </Hidden>
