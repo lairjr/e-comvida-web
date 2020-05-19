@@ -7,6 +7,7 @@ import TextField from "@material-ui/core/TextField";
 import Search from "@material-ui/icons/Search";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import "./List.css";
+import AddIcon from "@material-ui/icons/Add";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import { useFirestoreConnect, WhereOptions } from "react-redux-firebase";
@@ -18,10 +19,11 @@ import { Theme } from "@material-ui/core/styles/createMuiTheme";
 import FormControl from "@material-ui/core/FormControl";
 import Card, { LoadingCard } from "./Card";
 import { CompanyEntity, GroupActivityEntity } from "../../redux/entities";
-import { Hidden } from "@material-ui/core";
+import { Hidden, Fab } from "@material-ui/core";
 import CitySelect from "../../components/CitySelect";
 import SectorSelect from "../../components/SectorSelect";
 import { companiesByName } from "../../redux/selectors";
+import AdminWrapper from "../../components/AdminWrapper";
 
 function LoadingList() {
   return (
@@ -123,7 +125,19 @@ function List() {
     <Container>
       <Grid container spacing={4} style={{ paddingTop: "2rem" }}>
         <Grid item xs={12}>
-          <Grid container>
+          <Grid container style={{ position: "relative" }}>
+            <AdminWrapper>
+              <Fab
+                aria-label="Adicionar empresa"
+                variant="extended"
+                color="secondary"
+                style={{ position: "absolute", right: 0, top: ".5rem" }}
+              >
+                <AddIcon />
+                Adicionar
+              </Fab>
+            </AdminWrapper>
+
             <Grid item xs={12} sm={8}>
               <Hidden smDown>
                 <Typography
