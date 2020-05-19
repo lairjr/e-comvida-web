@@ -1,4 +1,4 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import "./App.css";
 import NavBar from "./components/NavBar";
 import Map from "./pages/map/Map";
@@ -13,6 +13,7 @@ import About from "./pages/about/About";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import Footer from "./components/Footer";
 import Add from "./pages/add/Add";
+import AdminWrapper from "./components/AdminWrapper";
 
 const theme = createMuiTheme({
   palette: {
@@ -46,6 +47,8 @@ const theme = createMuiTheme({
   },
 });
 
+const AdminAdd = lazy(() => import("./pages/admin/Add"));
+
 function App() {
   const rrfProps = {
     firebase,
@@ -65,27 +68,35 @@ function App() {
             <div className="app">
               <NavBar />
 
-              <Switch>
-                <Route exact path="/">
-                  <List />
-                </Route>
+              <Suspense fallback={<div>Loading...</div>}>
+                <Switch>
+                  <Route exact path="/">
+                    <List />
+                  </Route>
 
-                <Route exact path="/about">
-                  <About />
-                </Route>
+                  <Route exact path="/about">
+                    <About />
+                  </Route>
 
-                <Route exact path="/add">
-                  <Add />
-                </Route>
+                  <Route exact path="/add">
+                    <Add />
+                  </Route>
 
-                <Route exact path="/list">
-                  <List />
-                </Route>
+                  <Route exact path="/list">
+                    <List />
+                  </Route>
 
-                <Route exact path="/map">
-                  <Map />
-                </Route>
-              </Switch>
+                  <Route exact path="/map">
+                    <Map />
+                  </Route>
+
+                  <AdminWrapper>
+                    <Route exact path="/admin/add">
+                      <AdminAdd />
+                    </Route>
+                  </AdminWrapper>
+                </Switch>
+              </Suspense>
 
               <Footer />
             </div>
