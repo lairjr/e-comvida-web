@@ -130,7 +130,14 @@ function Add() {
             }}
             validate={validate}
             initialValues={DEFAULT_ADD_FORM_VALUES}
-            render={({ handleSubmit, form, submitting, pristine, valid }) => (
+            render={({
+              handleSubmit,
+              form,
+              submitting,
+              pristine,
+              valid,
+              values,
+            }) => (
               <form noValidate autoComplete="off" onSubmit={handleSubmit}>
                 <Field name="name">
                   {(props) => (
@@ -149,7 +156,12 @@ function Add() {
                 <Field name="city">
                   {(props) => {
                     const onCityChange = (event: any, value: any) => {
-                      props.input.onChange(value);
+                      if (value) {
+                        console.log(value);
+                        props.input.onChange(`${value.id}`);
+                      } else {
+                        props.input.onChange(undefined);
+                      }
                     };
 
                     return (
@@ -373,6 +385,8 @@ function Add() {
                     </Field>
                   </div>
                 </Grid>
+
+                <p>{JSON.stringify(values)}</p>
 
                 <Grid item xs={12} style={{ paddingTop: "1rem" }}>
                   <Button
