@@ -3,7 +3,6 @@ import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
-import emailjs from "emailjs-com";
 import Snackbar from "@material-ui/core/Snackbar";
 import { Form, Field } from "react-final-form";
 import Button from "@material-ui/core/Button";
@@ -23,16 +22,14 @@ import { withHandlers } from "recompose";
 const enhance = compose<React.FunctionComponent>(
   withFirestore,
   withHandlers({
-    addSuggestion: (props: WithFirestoreProps) => (
-      citySuggestion: CityEntity
-    ) => {
-      return props.firestore.add({ collection: "suggestions" }, citySuggestion);
+    addCompany: (props: WithFirestoreProps) => (citySuggestion: CityEntity) => {
+      return props.firestore.add({ collection: "companies" }, citySuggestion);
     },
   })
 );
 
 type AddProps = {
-  addSuggestion: (citySuggestion: AddFormValues) => Promise<{ id: string }>;
+  addCompany: (citySuggestion: AddFormValues) => Promise<{ id: string }>;
 };
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -63,6 +60,7 @@ interface AddFormValues {
   sectors: { [key: string]: any }[] | undefined;
   address: string;
   supports: SupportEntity[];
+  token: string;
 }
 
 const DEFAULT_ADD_FORM_VALUES: AddFormValues = {
@@ -71,6 +69,7 @@ const DEFAULT_ADD_FORM_VALUES: AddFormValues = {
   sectors: undefined,
   address: "",
   supports: [{ type: "", source: "" }],
+  token: process.env.REACT_APP_ADMIN_TOKEN || "",
 };
 
 const validate = (formValues: AddFormValues) => {
@@ -107,16 +106,9 @@ function Add(props: AddProps) {
 
   const onSubmit = async (value: AddFormValues) => {
     try {
-      const resultFirebase = await props.addSuggestion(value);
+      const resultFirebase = await props.addCompany(value);
 
-      const resultEmail = await emailjs.send(
-        process.env.REACT_APP_EMAILJS_SERVICE_ID as string,
-        process.env.REACT_APP_EMAILJS_ADD_ID as string,
-        { data: JSON.stringify(value) },
-        process.env.REACT_APP_EMAILJS_USER_ID
-      );
-
-      if (resultEmail.status === 200 && resultFirebase.id) {
+      if (resultFirebase.id) {
         setOpenSuccess(true);
       } else {
         setOpenFailure(true);
@@ -417,10 +409,10 @@ function Add(props: AddProps) {
 
       <Snackbar
         open={openSuccess}
-        autoHideDuration={6000}
+        autoHideDuration={3000}
         onClose={() => setOpenSuccess(false)}
         color="primary"
-        message="Valeu! Estamos processando seu cadastro"
+        message="Cadastro realizado com succeso"
       />
 
       <Snackbar
