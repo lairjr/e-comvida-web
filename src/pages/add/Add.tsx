@@ -185,7 +185,14 @@ function Add() {
                 <Field name="sectors">
                   {(props) => {
                     const onSectorChange = (event: any, value: any) => {
-                      props.input.onChange(value);
+                      if (value) {
+                        const sectorIds = value.map(
+                          (sector: any) => `${sector.id}`
+                        );
+                        props.input.onChange(sectorIds);
+                      } else {
+                        props.input.onChange(undefined);
+                      }
                     };
 
                     return (
@@ -295,7 +302,7 @@ function Add() {
                   )}
                 </Field>
 
-                <Field name="site">
+                <Field name="siteUrl">
                   {(props) => (
                     <TextField
                       label="Site URL"
@@ -385,8 +392,6 @@ function Add() {
                     </Field>
                   </div>
                 </Grid>
-
-                <p>{JSON.stringify(values)}</p>
 
                 <Grid item xs={12} style={{ paddingTop: "1rem" }}>
                   <Button
