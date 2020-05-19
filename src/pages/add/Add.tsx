@@ -16,7 +16,25 @@ import SectorSelect from "../../components/SectorSelect";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import SupportSelect from "../../components/SupportSelect";
-import { SupportEntity } from "../../redux/entities";
+import { SupportEntity, CityEntity } from "../../redux/entities";
+import { compose } from "redux";
+import { withFirestore, WithFirestoreProps } from "react-redux-firebase";
+import { withHandlers } from "recompose";
+
+const enhance = compose<React.FunctionComponent>(
+  withFirestore,
+  withHandlers({
+    addSuggestion: (props: WithFirestoreProps) => (
+      citySuggestion: CityEntity
+    ) => {
+      return props.firestore.add({ collection: "suggestions" }, citySuggestion);
+    },
+  })
+);
+
+type AddProps = {
+  addSuggestion: (citySuggestion: AddFormValues) => Promise<{ id: string }>;
+};
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -88,7 +106,7 @@ const validate = (formValues: AddFormValues) => {
   return Object.keys(requiredFieds).length > 0 ? requiredFieds : undefined;
 };
 
-function Add() {
+function Add(props: AddProps) {
   const classes = useStyles();
 
   const [openSuccess, setOpenSuccess] = useState(false);
@@ -96,14 +114,16 @@ function Add() {
 
   const onSubmit = async (value: AddFormValues) => {
     try {
-      const result = await emailjs.send(
+      const resultFirebase = await props.addSuggestion(value);
+
+      const resultEmail = await emailjs.send(
         process.env.REACT_APP_EMAILJS_SERVICE_ID as string,
         process.env.REACT_APP_EMAILJS_ADD_ID as string,
         { data: JSON.stringify(value) },
         process.env.REACT_APP_EMAILJS_USER_ID
       );
 
-      if (result.status === 200) {
+      if (resultEmail.status === 200 && resultFirebase.id) {
         setOpenSuccess(true);
       } else {
         setOpenFailure(true);
@@ -157,7 +177,6 @@ function Add() {
                   {(props) => {
                     const onCityChange = (event: any, value: any) => {
                       if (value) {
-                        console.log(value);
                         props.input.onChange(`${value.id}`);
                       } else {
                         props.input.onChange(undefined);
@@ -438,4 +457,4 @@ function Add() {
   );
 }
 
-export default Add;
+export default enhance(Add);
