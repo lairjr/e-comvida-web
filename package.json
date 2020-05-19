@@ -55,6 +55,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "build:adm": "REACT_APP_APP_MODE=adm env-cmd -f env.prod.js react-scripts build",
     "build:prod": "env-cmd -f env.prod.js react-scripts build",
     "build:staging": "env-cmd -f env.staging.js react-scripts build",
     "test": "react-scripts test",

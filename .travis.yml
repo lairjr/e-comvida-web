@@ -33,6 +33,18 @@ jobs:
         prod: true
         provider: netlify
         edge: true
+      
+    - stage: deploy_admin
+      name: "Deploy admin"
+      if: branch = master
+      before_deploy:
+        - yarn build:adm
+      deploy:
+        dir: "build/"
+        site: f9890d86-bc59-4326-9dec-ada6f70ed14b # adm
+        prod: true
+        provider: netlify
+        edge: true
 
     - stage: deploy_prod
       name: "Deploy prod"
