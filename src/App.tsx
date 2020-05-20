@@ -14,6 +14,7 @@ import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import Footer from "./components/Footer";
 import Add from "./pages/add/Add";
 import AdminWrapper from "./components/AdminWrapper";
+import Suggestions from "./pages/admin/Suggestions";
 
 const theme = createMuiTheme({
   palette: {
@@ -93,6 +94,12 @@ function App() {
                   <AdminWrapper>
                     <Route exact path="/admin/add">
                       <AdminAdd />
+                    </Route>
+                  </AdminWrapper>
+
+                  <AdminWrapper>
+                    <Route exact path="/admin/suggestions">
+                      <Suggestions />
                     </Route>
                   </AdminWrapper>
                 </Switch>
