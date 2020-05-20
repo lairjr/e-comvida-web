@@ -14,7 +14,6 @@ import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import Footer from "./components/Footer";
 import Add from "./pages/add/Add";
 import AdminWrapper from "./components/AdminWrapper";
-import Suggestions from "./pages/admin/Suggestions";
 
 const theme = createMuiTheme({
   palette: {
@@ -49,6 +48,7 @@ const theme = createMuiTheme({
 });
 
 const AdminAdd = lazy(() => import("./pages/admin/Add"));
+const Suggestions = lazy(() => import("./pages/admin/Suggestions"));
 
 function App() {
   const rrfProps = {
@@ -95,9 +95,7 @@ function App() {
                     <Route exact path="/admin/add">
                       <AdminAdd />
                     </Route>
-                  </AdminWrapper>
 
-                  <AdminWrapper>
                     <Route exact path="/admin/suggestions">
                       <Suggestions />
                     </Route>
