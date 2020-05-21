@@ -15,7 +15,7 @@ import createStyles from "@material-ui/core/styles/createStyles";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import { Theme } from "@material-ui/core/styles/createMuiTheme";
 import FormControl from "@material-ui/core/FormControl";
-import Card, { LoadingCard } from "../list/Card";
+import Card, { LoadingCard } from "./Card";
 import { CompanyEntity, GroupActivityEntity } from "../../redux/entities";
 import { Hidden } from "@material-ui/core";
 import CitySelect from "../../components/CitySelect";
@@ -117,7 +117,6 @@ function Suggestions() {
   });
 
   const companies = useSelector(suggestionsByName(nameFilterValue));
-  console.log(companies);
 
   return (
     <Container>
