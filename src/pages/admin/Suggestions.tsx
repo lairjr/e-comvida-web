@@ -20,7 +20,7 @@ import { CompanyEntity, GroupActivityEntity } from "../../redux/entities";
 import { Hidden } from "@material-ui/core";
 import CitySelect from "../../components/CitySelect";
 import SectorSelect from "../../components/SectorSelect";
-import { companiesByName } from "../../redux/selectors";
+import { suggestionsByName } from "../../redux/selectors";
 
 function LoadingSuggestions() {
   return (
@@ -116,7 +116,7 @@ function Suggestions() {
     orderBy: ["name", "desc"],
   });
 
-  const companies = useSelector(companiesByName(nameFilterValue));
+  const companies = useSelector(suggestionsByName(nameFilterValue));
   console.log(companies);
 
   return (

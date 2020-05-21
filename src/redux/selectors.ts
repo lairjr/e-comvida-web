@@ -17,3 +17,20 @@ export const companiesByName = (nameSearch: string | null) => (
   }
   return companies;
 };
+
+export const suggestionsByName = (nameSearch: string | null) => (
+  state: RootState
+) => {
+  const suggestions = state.firestore.ordered.suggestions;
+
+  if (nameSearch) {
+    return suggestions
+      ? suggestions.filter((company: CompanyEntity) => {
+          return company.name
+            .toLocaleLowerCase()
+            .startsWith(nameSearch.toLocaleLowerCase());
+        })
+      : [];
+  }
+  return suggestions;
+};
